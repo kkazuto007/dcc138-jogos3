@@ -53,7 +53,7 @@
             espaco: 0
         }
 
-        var relogio = -1;
+        var relogio = 200;
         var enemycronometer = 3;
         var batida = 2;
         var menu = -1;
@@ -120,7 +120,7 @@
 
         function heartrate(){
             return function (){
-                this.rate = 6.3 - relogio/50 * 1.5 - damage
+                this.rate = 6.3 - relogio/60 * 1.25 - damage
             }
         }
 
@@ -266,7 +266,7 @@
                 else if(boss >=2){
                     ctx.drawImage(assetsMng.img("youwon"),pc.x-160,pc.y-144,canvas.width/2,canvas.height/2);
                 }
-                else if(heart.rate <= 0){
+                else if(heart.rate <= 0 || relogio >= 240){
                     if(batida >= -1){
                         assetsMng.play("tension");
                         batida = -9000;

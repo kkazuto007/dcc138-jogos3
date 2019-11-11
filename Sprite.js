@@ -50,7 +50,7 @@ Sprite.prototype.desenhar = function (ctx) {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.drawImage(this.scene.assets.img("enemy"),
-            Math.floor(relogio/60)*32,
+            Math.floor(relogio/50)*32,
             (F % 2) *32,
             32,
             32,
