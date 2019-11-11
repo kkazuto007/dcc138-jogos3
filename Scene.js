@@ -72,9 +72,8 @@ Scene.prototype.checaColisao = function(){
                 }
                 else
                 if(this.sprites[i].props.tipo === "pc"
-                && this.sprites[j].props.tipo ==="bossshoot"){
+                && this.sprites[j].props.tipo ==="bosssshot"){
                     this.toRemove.push(this.sprites[j]);
-                    this.adicionar(new Explosion({x: this.sprites[j].x, y:this.sprites[j].y}));
                     this.assets.play("death");
                     this.assets.play("heartbeat");
                     this.sprites[2].rate += 1;
@@ -97,11 +96,10 @@ Scene.prototype.checaColisao = function(){
                     kills++;
                 }
                 else 
-                if(this.sprites[i].props.tipo === "bossshoot"
+                if(this.sprites[i].props.tipo === "bosssshot"
                 && this.sprites[j].props.tipo ==="tiro"){
                     this.toRemove.push(this.sprites[i]);
                     this.toRemove.push(this.sprites[j]);
-                    this.adicionar(new Explosion({x: this.sprites[i].x, y:this.sprites[i].y}));
                     this.assets.play("death");
                     kills++;
                 }

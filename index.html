@@ -30,6 +30,7 @@
         assetsMng.loadImage("youwon","./assets/youwon.png");
         assetsMng.loadImage("gameboy","./assets/gameboy.png");
         assetsMng.loadImage("numbers","./assets/numbers.png");
+        assetsMng.loadImage("bossshot","./assets/bossshot.png");
 
         
         assetsMng.loadAudio("explosion", "assets/explosion.mp3");
@@ -156,7 +157,7 @@
                        w: 32,
                        h: 32,
                        comportar: persegue2(alvo),
-                       props: { tipo: "bossshoot"},
+                       props: { tipo: "bosssshot"},
                     });
                    var angel = new Sprite({
                        x: this.x,
@@ -164,7 +165,7 @@
                        w: 32,
                        h: 32,
                        comportar: orbita(chefe),
-                       props: { tipo: "bossshoot2"},
+                       props: { tipo: "bosssshot2"},
                     });
                     this.scene.adicionar(tiro);
                     assetsMng.play("shot");
@@ -263,7 +264,7 @@
                 }
                 else{
                     if(boss <=1){
-                        if(torres <= 0 || kills >= 50){
+                        if(torres <= 0 || kills >= 0){
                            cena2.adicionar(chefe);
                            mapa.cells[11][9].tipo = 20;
                            boss++;
