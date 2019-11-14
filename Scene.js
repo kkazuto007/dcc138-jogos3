@@ -50,13 +50,6 @@ Scene.prototype.checaColisao = function(){
             this.sprites[i].morto = 1;
         }
         if(this.sprites[i].morto){
-            if(this.sprites[i].props.tipo === "tower"){
-                this.assets.play("explosion");
-                torres--;
-            }
-            if(this.sprites[i].props.tipo === "boss"){
-                boss++;
-            }
             this.toRemove.push(this.sprites[i]);
         }
         for(var j = i+1; j<this.sprites.length; j++){
@@ -70,31 +63,6 @@ Scene.prototype.checaColisao = function(){
                     this.sprites[2].rate += 1;
                     damage += 0.05
                 }
-                else
-                if(this.sprites[i].props.tipo === "pc"
-                && this.sprites[j].props.tipo ==="bossshot"){
-                    this.toRemove.push(this.sprites[j]);
-                    this.assets.play("death");
-                    this.assets.play("heartbeat");
-                    this.sprites[2].rate += 1;
-                    damage += 0.01
-                }
-                else
-                if(this.sprites[i].props.tipo === "pc"
-                && this.sprites[j].props.tipo ==="bossshot2"){
-                    this.toRemove.push(this.sprites[j]);
-                    this.assets.play("death");
-                    this.assets.play("heartbeat");
-                    this.sprites[2].rate += 1;
-                    damage += 0.05
-                }
-                else 
-                if(this.sprites[i].props.tipo === "pc"
-                && this.sprites[j].props.tipo ==="boss"){
-                    this.assets.play("heartbeat");
-                    this.sprites[2].rate += 1;
-                    damage += 0.005
-                }
                 else 
                 if(this.sprites[i].props.tipo === "enemy"
                 && this.sprites[j].props.tipo ==="tiro"){
@@ -103,34 +71,6 @@ Scene.prototype.checaColisao = function(){
                     this.adicionar(new Explosion({x: this.sprites[i].x, y:this.sprites[i].y}));
                     this.assets.play("death");
                     kills++;
-                }
-                else 
-                if(this.sprites[i].props.tipo === "bossshot"
-                && this.sprites[j].props.tipo ==="tiro"){
-                    this.toRemove.push(this.sprites[i]);
-                    this.toRemove.push(this.sprites[j]);
-                    this.assets.play("death");
-                    kills++;
-                }
-                else 
-                if(this.sprites[i].props.tipo === "bossshot2"
-                && this.sprites[j].props.tipo ==="tiro"){
-                    this.toRemove.push(this.sprites[i]);
-                    this.toRemove.push(this.sprites[j]);
-                    this.assets.play("death");
-                    kills++;
-                }
-                else 
-                if(this.sprites[i].props.tipo === "tower"
-                && this.sprites[j].props.tipo ==="tiro"){
-                    this.toRemove.push(this.sprites[j]);
-                    this.sprites[i].vida--;
-                }
-                else 
-                if(this.sprites[i].props.tipo === "boss"
-                && this.sprites[j].props.tipo ==="tiro"){
-                    this.toRemove.push(this.sprites[j]);
-                    this.sprites[i].vida--;
                 }
             }
         }
@@ -151,16 +91,6 @@ Scene.prototype.desenharMapa = function () {
     this.map.desenhar(this.ctx);
 }
 
-Scene.prototype.gerador = function () {
-    if(enemycronometer <= 0 ){
-        this.adicionar(new Sprite({ x: 288, y: 48, w:16, h:16, comportar: persegue(pc), props: {tipo: "enemy"}}));
-        this.adicionar(new Sprite({ x: 48, y: 420, w:16, h:16, comportar: persegue(pc), props: {tipo: "enemy"}}));
-        this.adicionar(new Sprite({ x: 580, y: 440, w:16, h:16, comportar: persegue(pc), props: {tipo: "enemy"}}));
-        this.adicionar(new Sprite({ x: 300, y: 380, w:16, h:16, comportar: persegue(pc), props: {tipo: "enemy"}}));
-        this.adicionar(new Sprite({ x: 480, y: 96, w:16, h:16, comportar: persegue(pc), props: {tipo: "enemy"}}));
-        enemycronometer += 10;
-    }
-}
 
 Scene.prototype.passo = function(dt){
     this.limpar();
@@ -171,18 +101,5 @@ Scene.prototype.passo = function(dt){
     this.mover(dt);
     this.desenhar();
     //this.checaColisao();
-    this.removeSprites();
-}
-
-Scene.prototype.passo2 = function(dt){
-    this.limpar();
-    ctx.lineWidth = 256;
-    ctx.strokeRect(0, 0, canvas.width, canvas.height);
-    this.desenharMapa();
-    this.gerador();
-    this.comportar();
-    this.mover(dt);
-    this.desenhar();
-    this.checaColisao();
     this.removeSprites();
 }

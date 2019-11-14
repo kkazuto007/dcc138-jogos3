@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursed Night</title>
+    <title>Knight of Toyland</title>
     <script src="Sprite.js"></script>
     <script src="Scene.js"></script>
     <script src="AssetsManager.js"></script>
     <script src="Map.js"></script>
-    <script src="Explosion.js"></script>
 
 </head>
 
@@ -17,33 +16,12 @@
     <canvas></canvas>
     <script>
         var assetsMng = new AssetsManager();
-        assetsMng.loadImage("explosion", "assets/explosion.png");
-        assetsMng.loadImage("demon", "assets/player.png");
-        assetsMng.loadImage("clock","./assets/clock.png");
-        assetsMng.loadImage("heart","./assets/heart.png");
-        assetsMng.loadImage("enemy","./assets/enemy.png");
-        assetsMng.loadImage("temple","./assets/temple.png");
-        assetsMng.loadImage("circle","./assets/summoncircle.png");
-        assetsMng.loadImage("bash","./assets/bash.png");
-        assetsMng.loadImage("menu","./assets/menu.png");
-        assetsMng.loadImage("gameover","./assets/gameover.png");
-        assetsMng.loadImage("youwon","./assets/youwon.png");
-        assetsMng.loadImage("gameboy","./assets/gameboy.png");
-        assetsMng.loadImage("numbers","./assets/numbers.png");
-        assetsMng.loadImage("bossshot","./assets/bossshot.png");
-
-        
-        assetsMng.loadAudio("explosion", "assets/explosion.mp3");
-        assetsMng.loadAudio("shot", "assets/switch.mp3");
-        assetsMng.loadAudio("tension", "assets/tension.mp3");
-        assetsMng.loadAudio("heartbeat","assets/heartbeat.mp3");
-        assetsMng.loadAudio("death", "assets/death.mp3");
-
-        
+        var mapAssets = new AssetsManager();
         
         var canvas = document.querySelector("canvas");
         canvas.width = 640;
         canvas.height = 576;
+
         var ctx = canvas.getContext("2d");
         var teclas = {
             esquerda: 0,
@@ -53,19 +31,6 @@
             espaco: 0
         }
 
-        var relogio = -1;
-        var enemycronometer = 3;
-        var batida = 2;
-        var menu = -1;
-        var damage = 0;
-        var kills = 0;
-        var boss = 0.5;
-        var torres = 5;
-
-        mapAssets = new AssetsManager();
-        mapAssets.loadImage("basetiles","./assets/basetile.png");
-        mapAssets.loadImage("enemy","./assets/enemy.png");
-        mapAssets.loadAudio("heartbeat", "./assets/heartbeat.mp3");
 
         
         var mapa = new Map({COLUMNS:20, LINES:18, m:
@@ -90,39 +55,13 @@
         [8,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9, 10]
         ]
         });
+
         mapa.assets = mapAssets;
         var cena1 = new Scene({ ctx: ctx, w: canvas.width, h: canvas.height, assets: mapAssets, map:mapa });
         var cena2 = new Scene({ ctx: ctx, w: canvas.width, h: canvas.height, assets: assetsMng, map:mapa });
-        
-        //add torres:
-        var temple1 = new Sprite({ x: 256, y:48, w:128, h:128, vida: 8, props: {tipo: "tower"}});
-        var temple2 = new Sprite({ x: 48,  y:420, w:128, h:128, vida: 8, props: {tipo: "tower"}});
-        var temple3 = new Sprite({ x: 580, y:440, w:128, h:128, vida: 8, props: {tipo: "tower"}});
-        var temple4 = new Sprite({ x: 300, y:380, w:128, h:128, vida: 8, props: {tipo: "tower"}});
-        var temple5 = new Sprite({ x: 480, y:96, w:128, h:128, vida: 8, props: {tipo: "tower"}});
-        cena2.adicionar(temple1);
-        cena2.adicionar(temple2);
-        cena2.adicionar(temple3);
-        cena2.adicionar(temple4);
-        cena2.adicionar(temple5);
 
         var pc = new Sprite({ x: 128, y: 128, w:8, h: 16, vx: 20,vy: 20, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
         cena2.adicionar(pc);
-
-        var relogiosprite = new Sprite({ x: canvas.width/8-pc.x, y: canvas.height/8-pc.y, w: 32, h: 32, props: { tipo: "relogio" }});
-        cena2.adicionar(relogiosprite);
-
-        var heart = new Sprite({ x: canvas.width/8-pc.x, y: canvas.height/8-pc.y, w: 16, h: 16, rate: 6, w: 32, h: 32, comportar: heartrate() , props: { tipo: "coracao" }});
-        cena2.adicionar(heart);
- 
-        var chefe = new Sprite({x:386, y: 320, h:64, w:64 ,vida:15 ,comportar: persegueSpawn(pc), props:{tipo: "boss"}});
-                           
-
-        function heartrate(){
-            return function (){
-                this.rate = 6.3 - relogio/60 * 1.25 - damage
-            }
-        }
 
         function persegue(alvo) {
            return function () {
@@ -257,40 +196,12 @@
             ctx.clearRect(0,0, canvas.width, canvas.height);
             ctx.save();
             dt = (t - anterior) / 1000;
-            ctx.scale(2,2)
-            ctx.translate(canvas.width/4-pc.x,canvas.height/4-pc.y)
             if(assetsMng.progresso()===100){
                 if(menu <= 0){
-                   ctx.drawImage(assetsMng.img("menu"),-32,-16,canvas.width/2,canvas.height/2);
-                }
-                else if(boss >=2){
-                    ctx.drawImage(assetsMng.img("youwon"),pc.x-160,pc.y-144,canvas.width/2,canvas.height/2);
-                }
-                else if(heart.rate <= 0 || relogio >= 240){
-                    if(batida >= -1){
-                        assetsMng.play("tension");
-                        batida = -9000;
-                    }
-                    ctx.drawImage(assetsMng.img("gameover"),pc.x-160,pc.y-144,canvas.width/2,canvas.height/2);
                 }
                 else{
-                    if(boss <=1){
-                        if(torres <= 0 || kills >= 50){
-                           cena2.adicionar(chefe);
-                           mapa.cells[11][9].tipo = 20;
-                           boss++;
-                        }
-                    }
-                    relogio += dt;
-                    enemycronometer -= dt; 
-                    batida -= dt * heart.rate/2
-                    if(batida <= 0){
-                       assetsMng.play("heartbeat");
-                       batida += 2; 
-                    } 
                     cena1.passo(dt);
-                    cena2.passo2(dt);
-                    ctx.drawImage(assetsMng.img("gameboy"),pc.x-160,pc.y-144,canvas.width/2,canvas.height/2);                
+                    cena2.passo(dt);
                 }
             }
             anterior = t;
