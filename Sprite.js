@@ -33,7 +33,6 @@ Sprite.prototype.constructor = Sprite;
 Sprite.prototype.desenhar = function (ctx) {
 
     ctx.save();
-    ctx.scale(0.5, 0.5)
     ctx.translate(this.x, this.y);
     if (this.ax >= 0) {
         if (this.ay >= 0) {
@@ -46,7 +45,8 @@ Sprite.prototype.desenhar = function (ctx) {
     else {
         var F = Math.floor(this.frame * (-1) * this.ax / 10);
     }
-    ctx.fillRect(0,0,this.w,this.h);
+    ctx.fillStyle = "black";
+    ctx.fillRect(-this.w/2,-this.h/2,this.w,this.h);
     ctx.restore();
 }
 
