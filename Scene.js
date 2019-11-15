@@ -82,10 +82,10 @@ Scene.prototype.desenharMapa = function () {
 
 Scene.prototype.passo = function(dt){
     this.limpar();
+    this.desenhar();
     this.desenharMapa();
     this.comportar();
     this.mover(dt);
-    this.desenhar();
     //this.checaColisao();
     this.removeSprites();
 }

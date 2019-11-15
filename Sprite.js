@@ -31,7 +31,7 @@ Sprite.prototype = new Sprite();
 Sprite.prototype.constructor = Sprite;
 
 Sprite.prototype.desenhar = function (ctx) {
-
+    ctx.drawImage(mapAssets.img("toyroom"),0,0,800,640,0,0,canvas.width,canvas.height);
     ctx.save();
     ctx.translate(this.x, this.y);
     if (this.ax >= 0) {
