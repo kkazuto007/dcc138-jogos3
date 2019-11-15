@@ -52,50 +52,17 @@ Sprite.prototype.desenhar = function (ctx) {
 
 Sprite.prototype.mover = function (dt) {
     this.frame += 4 * dt;
-    if(this.props.tipo === "tiro"){
-        if (Math.floor(this.frame) >= 1){
-            this.morto = true;
-        }
-    }
     if (Math.floor(this.frame) >= 20) {
         this.frame = 0;
     }
-    this.movermru(dt);
+    this.moverOrtogonal(dt);
 }
 
-Sprite.prototype.moverCircular = function (dt) {
-    this.a = this.a + this.va * dt;
-
-    this.vx = this.vm * Math.cos(this.a);
-    this.vy = this.vm * Math.sin(this.a);
-
-    this.x = this.x + this.vx * dt;
-    this.y = this.y + this.vy * dt;
-
-    this.cooldown = this.cooldown - dt;
-}
-
-Sprite.prototype.movermru = function (dt) {
-
-    this.x = this.x + this.ax * dt;
-    this.y = this.y + this.ay * dt;
-
-    this.a = this.a + this.va*dt;
-
-    this.mc = Math.floor(this.x / this.scene.map.SIZE);
-    this.ml = Math.floor(this.y / this.scene.map.SIZE);
-    if(this.props.tipo != "boss" && this.props.tipo != "bossshot" && this.props.tipo != "bossshot2"){
-        this.aplicaRestricoes(dt);
-    }
-    this.cooldown = this.cooldown - dt;
-}
-
-/*
 Sprite.prototype.moverOrtogonal = function (dt) {
     this.a = this.a + this.va*dt;
 
     this.vx = this.vx + this.ax * dt - this.vx * 0.9 * dt;
-    this.vy = this.vy + this.ay * dt + 120 * dt;
+    this.vy = this.vy + 980 * dt;
 
 
     this.mc = Math.floor(this.x / this.scene.map.SIZE);
@@ -104,15 +71,15 @@ Sprite.prototype.moverOrtogonal = function (dt) {
     this.aplicaRestricoes(dt);
     this.cooldown = this.cooldown - dt;
 }
-*/
+
 
 Sprite.prototype.aplicaRestricoes = function (dt) {
 
     var dnx;
     var dx;
-    dx = this.ax * dt;
+    dx = this.vx * dt;
     dnx = dx;
-    dy = this.ay * dt;
+    dy = this.vy * dt;
     dny = dy;
     if (dx > 0 && this.scene.map.cells[this.mc + 1][this.ml].tipo != 0) {
         dnx = this.scene.map.SIZE * (this.mc + 1) - (this.x + this.w / 2);
@@ -130,7 +97,7 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
         dny = this.scene.map.SIZE * (this.ml - 1 + 1) - (this.y - this.h / 2);
         dy = Math.max(dny, dy);
     }
-    this.ay = dy / dt;
+    this.vy = dy / dt;
     this.x = this.x + dx;
     this.y = this.y + dy;
 
@@ -140,7 +107,7 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
     if (this.x > MAXX) this.x = MAXX;
     if (this.y > MAXY) {
         this.y = MAXY;
-        this.ay = 0;
+        this.vy = 0;
     }
     if (this.x - this.w / 2 < 0) this.x = 0 + this.w / 2;
     if (this.y - this.h / 2 < 0) this.y = 0 + this.h / 2;
