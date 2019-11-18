@@ -27,18 +27,25 @@ Map.prototype.desenhar = function (ctx) {
         for (var l = 0; l < this.LINES; l++) {
             switch (this.cells[c][l].tipo) {
                 case 0:
-                    cor = "tan";
                     break;
                 case 1:
-                    cor = "darkgrey";
                     break;
                 case 2:
+                    cor = "black";
+                    ctx.fillStyle = cor;
                     ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
                     break;
+                case 1000:
+                    cor = "darkred";
+                    ctx.fillStyle = cor;
+                    ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
+                    break;
+
                 //desenha blocks: (ate ter cenário pronto)
                 default:
                     cor = "black";
-                ctx.strokeRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
+                    ctx.strokeRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
+                    break;
             }
         }
     }

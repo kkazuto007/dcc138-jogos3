@@ -12,6 +12,7 @@ function Sprite(params = {}) {
         va: 0,
         vm: 0,
         vida: 1,
+        pulo: 0,
         morto: 0,
         rate: 0,
         lado: 1,
@@ -31,7 +32,6 @@ Sprite.prototype = new Sprite();
 Sprite.prototype.constructor = Sprite;
 
 Sprite.prototype.desenhar = function (ctx) {
-    ctx.drawImage(mapAssets.img("toyroom"),0,0,800,640,0,0,canvas.width,canvas.height);
     ctx.save();
     ctx.translate(this.x, this.y);
     if (this.ax >= 0) {
@@ -45,7 +45,7 @@ Sprite.prototype.desenhar = function (ctx) {
     else {
         var F = Math.floor(this.frame * (-1) * this.ax / 10);
     }
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "blue";
     ctx.fillRect(-this.w/2,-this.h/2,this.w,this.h);
     ctx.restore();
 }
