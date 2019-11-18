@@ -7,7 +7,8 @@ function Scene(params) {
         h: 300,
         assets: null,
         map: null,
-        mapindice: 0
+        mapindice: 0,
+        teleportes: 0
     }
     Object.assign(this, exemplo, params);
 }
@@ -68,6 +69,7 @@ Scene.prototype.checaColisao = function(){
                     this.sprites[i].x = 80;
                     this.sprites[i].y = this.sprites[i].y;
                     this.mapindice++;
+                    this.teleportes = 0;
                 }
                 else
                 if(this.sprites[i].props.tipo === "pc"
@@ -75,6 +77,7 @@ Scene.prototype.checaColisao = function(){
                     this.sprites[i].x = 720;
                     this.sprites[i].y = this.sprites[i].y;
                     this.mapindice--;
+                    this.teleportes = 0;
                 }
             }
         }
@@ -103,16 +106,25 @@ Scene.prototype.scenario = function(){
         case 1:
             break
     }
-    }
+}
 
+Scene.prototype.setTeleporte = function(){
+    if(this.teleportes <= 0){
+        var teleportedir = new Sprite({ x: canvas.width-48, y: 300, w:32, h: 640, props: { tipo: "teleportedir" }});
+        cena2.adicionar(teleportedir);
+        var teleporteesq = new Sprite({ x: 0+48, y: 300, w:32, h: 640, props: { tipo: "teleporteesq" }});
+        cena2.adicionar(teleporteesq);
+    }
+    this.teleportes = 1;
+}
 
 Scene.prototype.passo = function(dt){
     this.limpar();
     this.scenario();
+    this.setTeleporte();
     this.desenhar();
     this.desenharMapa();
     this.comportar();
-
     this.mover(dt);
     this.checaColisao();
     this.removeSprites();
