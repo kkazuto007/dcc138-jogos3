@@ -119,13 +119,16 @@ Sprite.prototype.MudancaMapa = function (){
     if(this.tipo === 'pc'){
         if(this.x >= canvas.width - 160);
         switch (this.scene.map){
-            case 'mapa1':
+            case mapa1:
                 this.x = 100;
                 this.scene.map = 'mapa2';
                 break;
-            case 'mapa2':
+            case mapa2:
                 this.x = 100;
                 this.scene.map = 'mapa1';
+            default:
+                ctx.fillRect(0,0,canvas.width,cavnas.height);
+                break;
          }
     }
 }

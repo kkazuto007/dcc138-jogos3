@@ -33,6 +33,7 @@ Map.prototype.desenhar = function (ctx) {
                     cor = "darkgrey";
                     break;
                 case 2:
+                    ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
                     break;
                 //desenha blocks: (ate ter cenário pronto)
                 default:
