@@ -111,9 +111,24 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
     }
     if (this.x - this.w / 2 < 0) this.x = 0 + this.w / 2;
     if (this.y - this.h / 2 < 0) this.y = 0 + this.h / 2;
+    this.MudancaMapa();
 
 }
 
+Sprite.prototype.MudancaMapa = function (){
+    if(this.tipo === 'pc'){
+        if(this.x >= canvas.width - 160);
+        switch (this.scene.map){
+            case 'mapa1':
+                this.x = 100;
+                this.scene.map = 'mapa2';
+                break;
+            case 'mapa2':
+                this.x = 100;
+                this.scene.map = 'mapa1';
+         }
+    }
+}
 
 Sprite.prototype.colidiuCom = function (alvo) {
     if (alvo.x + alvo.w / 2 < this.x - this.w / 2) return false;
