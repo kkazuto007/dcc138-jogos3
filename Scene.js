@@ -7,6 +7,7 @@ function Scene(params) {
         h: 300,
         assets: null,
         map: null,
+        mapindice: 0,
         teleportes: 0
     }
     Object.assign(this, exemplo, params);
@@ -67,7 +68,7 @@ Scene.prototype.checaColisao = function(){
                 && this.sprites[j].props.tipo ==="teleportedir"){
                     this.sprites[i].x = 80;
                     this.sprites[i].y = this.sprites[i].y;
-                    this.map.mapindice++;
+                    this.mapindice++;
                     this.teleportes = 0;
                 }
                 else
@@ -75,7 +76,7 @@ Scene.prototype.checaColisao = function(){
                 && this.sprites[j].props.tipo ==="teleporteesq"){
                     this.sprites[i].x = 720;
                     this.sprites[i].y = this.sprites[i].y;
-                    this.map.mapindice--;
+                    this.mapindice--;
                     this.teleportes = 0;
                 }
             }
@@ -94,11 +95,13 @@ Scene.prototype.removeSprites = function () {
 };
 
 Scene.prototype.desenharMapa = function () {
-    this.map.desenhar(this.ctx);
+    this.map[this.mapindice].desenhar(this.ctx);
 }
 
 Scene.prototype.scenario = function(){
-    switch(this.map.mapindice){
+    this.map.push(this.map[this.mapindice]); //trocar pro indice NO PRÓPRIO MAPA
+
+    switch(this.map[this.mapindice].mapindice){
         case 0:
             ctx.drawImage(mapAssets.img("toyroom"),0,0,800,640,0,0,canvas.width,canvas.height);
             break;

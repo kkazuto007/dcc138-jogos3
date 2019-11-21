@@ -22,9 +22,6 @@ function Map(modelo) {
     }
 }
 
-Map.prototype.verificaMapindice = function () {
-
-}
 
 Map.prototype.desenhar = function (ctx) {
     var cor = "black";

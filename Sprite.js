@@ -65,8 +65,8 @@ Sprite.prototype.moverOrtogonal = function (dt) {
     this.vy = this.vy + 980 * dt;
 
 
-    this.mc = Math.floor(this.x / this.scene.map.SIZE);
-    this.ml = Math.floor(this.y / this.scene.map.SIZE);
+    this.mc = Math.floor(this.x / this.scene.map[this.scene.mapindice].SIZE);
+    this.ml = Math.floor(this.y / this.scene.map[this.scene.mapindice].SIZE);
 
     this.aplicaRestricoes(dt);
     this.cooldown = this.cooldown - dt;
@@ -81,28 +81,28 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
     dnx = dx;
     dy = this.vy * dt;
     dny = dy;
-    if (dx > 0 && this.scene.map.cells[this.mc + 1][this.ml].tipo != 0) {
-        dnx = this.scene.map.SIZE * (this.mc + 1) - (this.x + this.w / 2);
+    if (dx > 0 && this.scene.map[this.scene.mapindice].cells[this.mc + 1][this.ml].tipo != 0) {
+        dnx = this.scene.map[this.scene.mapindice].SIZE * (this.mc + 1) - (this.x + this.w / 2);
         dx = Math.min(dnx, dx);
     }
-    if (dx < 0 && this.scene.map.cells[this.mc - 1][this.ml].tipo != 0) {
-        dnx = this.scene.map.SIZE * (this.mc - 1 + 1) - (this.x - this.w / 2);
+    if (dx < 0 && this.scene.map[this.scene.mapindice].cells[this.mc - 1][this.ml].tipo != 0) {
+        dnx = this.scene.map[this.scene.mapindice].SIZE * (this.mc - 1 + 1) - (this.x - this.w / 2);
         dx = Math.max(dnx, dx);
     }
-    if (dy > 0 && this.scene.map.cells[this.mc][this.ml + 1].tipo != 0) {
-        dny = this.scene.map.SIZE * (this.ml + 1) - (this.y + this.h / 2);
+    if (dy > 0 && this.scene.map[this.scene.mapindice].cells[this.mc][this.ml + 1].tipo != 0) {
+        dny = this.scene.map[this.scene.mapindice].SIZE * (this.ml + 1) - (this.y + this.h / 2);
         dy = Math.min(dny, dy);
     }
-    if (dy < 0 && this.scene.map.cells[this.mc][this.ml - 1].tipo != 0) {
-        dny = this.scene.map.SIZE * (this.ml - 1 + 1) - (this.y - this.h / 2);
+    if (dy < 0 && this.scene.map[this.scene.mapindice].cells[this.mc][this.ml - 1].tipo != 0) {
+        dny = this.scene.map[this.scene.mapindice].SIZE * (this.ml - 1 + 1) - (this.y - this.h / 2);
         dy = Math.max(dny, dy);
     }
     this.vy = dy / dt;
     this.x = this.x + dx;
     this.y = this.y + dy;
 
-    var MAXX = this.scene.map.SIZE * this.scene.map.COLUMNS - this.w / 2;
-    var MAXY = this.scene.map.SIZE * this.scene.map.LINES - this.h / 2;
+    var MAXX = this.scene.map[this.scene.mapindice].SIZE * this.scene.map[this.scene.mapindice].COLUMNS - this.w / 2;
+    var MAXY = this.scene.map[this.scene.mapindice].SIZE * this.scene.map[this.scene.mapindice].LINES - this.h / 2;
 
     if (this.x > MAXX) this.x = MAXX;
     if (this.y > MAXY) {
@@ -111,27 +111,9 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
     }
     if (this.x - this.w / 2 < 0) this.x = 0 + this.w / 2;
     if (this.y - this.h / 2 < 0) this.y = 0 + this.h / 2;
-    this.MudancaMapa();
 
 }
 
-Sprite.prototype.MudancaMapa = function (){
-    if(this.tipo === 'pc'){
-        if(this.x >= canvas.width - 160);
-        switch (this.scene.map){
-            case mapa1:
-                this.x = 100;
-                this.scene.map = 'mapa2';
-                break;
-            case mapa2:
-                this.x = 100;
-                this.scene.map = 'mapa1';
-            default:
-                ctx.fillRect(0,0,canvas.width,cavnas.height);
-                break;
-         }
-    }
-}
 
 Sprite.prototype.colidiuCom = function (alvo) {
     if (alvo.x + alvo.w / 2 < this.x - this.w / 2) return false;
