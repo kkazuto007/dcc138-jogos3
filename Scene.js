@@ -7,7 +7,6 @@ function Scene(params) {
         h: 300,
         assets: null,
         map: null,
-        mapindice: 0,
         teleportes: 0
     }
     Object.assign(this, exemplo, params);
@@ -68,7 +67,7 @@ Scene.prototype.checaColisao = function(){
                 && this.sprites[j].props.tipo ==="teleportedir"){
                     this.sprites[i].x = 80;
                     this.sprites[i].y = this.sprites[i].y;
-                    this.mapindice++;
+                    this.map.mapindice++;
                     this.teleportes = 0;
                 }
                 else
@@ -76,7 +75,7 @@ Scene.prototype.checaColisao = function(){
                 && this.sprites[j].props.tipo ==="teleporteesq"){
                     this.sprites[i].x = 720;
                     this.sprites[i].y = this.sprites[i].y;
-                    this.mapindice--;
+                    this.map.mapindice--;
                     this.teleportes = 0;
                 }
             }
@@ -99,11 +98,13 @@ Scene.prototype.desenharMapa = function () {
 }
 
 Scene.prototype.scenario = function(){
-    switch(this.mapindice){
+    switch(this.map.mapindice){
         case 0:
             ctx.drawImage(mapAssets.img("toyroom"),0,0,800,640,0,0,canvas.width,canvas.height);
             break;
         case 1:
+            ctx.drawImage(mapAssets.img("pleiades"),0,0,800,640,0,0,canvas.width,canvas.height);
+            
             break
     }
 }
