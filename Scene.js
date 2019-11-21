@@ -100,24 +100,26 @@ Scene.prototype.desenharMapa = function () {
 
 Scene.prototype.scenario = function(){
     this.map.push(this.map[this.mapindice]); //trocar pro indice NO PRÓPRIO MAPA
-
     switch(this.map[this.mapindice].mapindice){
         case 0:
             ctx.drawImage(mapAssets.img("toyroom"),0,0,800,640,0,0,canvas.width,canvas.height);
             break;
         case 1:
             ctx.drawImage(mapAssets.img("pleiades"),0,0,800,640,0,0,canvas.width,canvas.height);
-            
             break
     }
 }
 
 Scene.prototype.setTeleporte = function(){
     if(this.teleportes <= 0){
+        /*
+        if(this.mapindice !=0){
+            var teleporteesq = new Sprite({ x: 0+48, y: 300, w:32, h: 640, props: { tipo: "teleporteesq" }});
+            cena2.adicionar(teleporteesq);
+        }
+        */
         var teleportedir = new Sprite({ x: canvas.width-48, y: 300, w:32, h: 640, props: { tipo: "teleportedir" }});
         cena2.adicionar(teleportedir);
-        var teleporteesq = new Sprite({ x: 0+48, y: 300, w:32, h: 640, props: { tipo: "teleporteesq" }});
-        cena2.adicionar(teleporteesq);
     }
     this.teleportes = 1;
 }
