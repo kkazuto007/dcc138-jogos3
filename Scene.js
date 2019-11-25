@@ -118,10 +118,10 @@ Scene.prototype.setTeleporte = function(){
         var teleportedir = new Sprite({ x: canvas.width-48, y: 300, w:32, h: 640, props: { tipo: "teleportedir" }});
         cena2.adicionar(teleportedir);
 
-        var teleportecim = new Sprite({ x: 48, y: 16, w:600, h: 32, props: { tipo: "teleportecim" }});
+        var teleportecim = new Sprite({ x: 0, y: 0, w:800, h: 32, props: { tipo: "teleportecim" }});
         cena2.adicionar(teleportecim);
 
-        var teleportebai = new Sprite({ x: 48, y: canvas.height-48, w:600, h: 32, props: { tipo: "teleportebai" }});
+        var teleportebai = new Sprite({ x: 0, y: canvas.height-48, w:800, h: 32, props: { tipo: "teleportebai" }});
         cena2.adicionar(teleportebai);
     }
     this.teleportes = 1;

@@ -30,13 +30,7 @@ Map.prototype.desenhar = function (ctx) {
             switch (this.cells[c][l].tipo) {
                 case 0:
                     break;
-                case 1:
-                    break;
-                case 2:
-                    cor = "black";
-                    ctx.fillStyle = cor;
-                    ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
-                    break;
+                //case 3: sustentação
                 case 1000:
                     cor = "darkred";
                     ctx.fillStyle = cor;
