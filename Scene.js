@@ -107,6 +107,9 @@ Scene.prototype.scenario = function(){
         case 1:
             ctx.drawImage(mapAssets.img("pleiades"),0,0,800,640,0,0,canvas.width,canvas.height);
             break
+        case 2:
+            ctx.drawImage(mapAssets.img("rocket"),0,0,800,640,0,0,canvas.width,canvas.height);
+            break
     }
 }
 
