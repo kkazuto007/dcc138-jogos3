@@ -55,7 +55,12 @@ Sprite.prototype.mover = function (dt) {
     if (Math.floor(this.frame) >= 20) {
         this.frame = 0;
     }
-    this.moverOrtogonal(dt);
+    if(this.props.tipo != 'npc'){
+        this.moverOrtogonal(dt);
+    }
+    else{
+        this.moverNpc(dt);
+    }
 }
 
 Sprite.prototype.moverOrtogonal = function (dt) {
@@ -63,6 +68,20 @@ Sprite.prototype.moverOrtogonal = function (dt) {
 
     this.vx = this.vx + this.ax * dt - this.vx * 0.9 * dt;
     this.vy = this.vy + 980 * dt;
+
+
+    this.mc = Math.floor(this.x / this.scene.map[this.scene.mapindice].SIZE);
+    this.ml = Math.floor(this.y / this.scene.map[this.scene.mapindice].SIZE);
+
+    this.aplicaRestricoes(dt);
+    this.cooldown = this.cooldown - dt;
+}
+
+Sprite.prototype.moverNpc = function (dt) {
+    this.a = this.a + this.va*dt;
+
+    this.vx = this.vx + this.ax * dt - this.vx * 0.9 * dt;
+    this.vy = this.vy + this.ay * dt + 980 * dt;
 
 
     this.mc = Math.floor(this.x / this.scene.map[this.scene.mapindice].SIZE);

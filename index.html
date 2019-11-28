@@ -158,10 +158,24 @@
         var pulo = new Sprite({ x: 304, y: 480, w:32, h: 32, props: { tipo: "pulo" }});
         cena2.adicionar(pulo);
 
-        function persegue(alvo) {
+        var npc = new Sprite({ x: 480, y: 100, w:32, h: 32, props: { tipo: "npc" }, comportar: flutuante(pc)});
+        cena2.adicionar(npc);
+
+        var npc2 = new Sprite({ x: 480, y: 100, w:32, h: 32, props: { tipo: "npc" }, comportar: charge(pc)});
+        cena2.adicionar(npc2);
+
+        function flutuante(alvo) {
            return function () {
-               this.ax = 20*Math.sign(alvo.x - this.x);
-               this.ay = 20*Math.sign(alvo.y - this.y);
+               this.ax = 80*Math.sign(alvo.x - this.x);
+               this.ay = 80*Math.sign(alvo.y - this.y)- 980;
+            }
+        }
+
+        function charge(alvo) {
+           return function () {
+               if(Math.sqrt((alvo.x - this.x)*(alvo.x - this.x)) +(alvo.y-this.y)*(alvo.y-this.y) <= 200){
+                 this.ax = 200*Math.sign(alvo.x - this.x);
+               }
             }
         }
 
