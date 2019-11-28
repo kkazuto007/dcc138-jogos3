@@ -166,8 +166,13 @@
 
         function flutuante(alvo) {
            return function () {
-               this.ax = 80*Math.sign(alvo.x - this.x);
-               this.ay = 80*Math.sign(alvo.y - this.y)- 980;
+               if(Math.sqrt((alvo.x - this.x)*(alvo.x - this.x)) + (alvo.y-this.y)*(alvo.y-this.y) <= 320){
+                  this.compotamentoativo = 1;
+               }
+               if(this.compotamentoativo >= 1){
+                  this.ax = 80*Math.sign(alvo.x - this.x);
+                  this.ay = 80*Math.sign(alvo.y - this.y)- 980;
+               }
             }
         }
 

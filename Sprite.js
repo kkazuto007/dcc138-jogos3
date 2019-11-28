@@ -14,6 +14,7 @@ function Sprite(params = {}) {
         vida: 1,
         pulo: 0,
         morto: 0,
+        comportamentoativo: 0,
         rate: 0,
         lado: 1,
         frame: 0,
