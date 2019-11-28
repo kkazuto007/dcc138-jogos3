@@ -25,6 +25,7 @@ function Sprite(params = {}) {
         imune: 0,
         atirando: 0,
         comportar: undefined,
+        dialogo: undefined,
         scene: undefined
     }
     Object.assign(this, exemplo, params);
