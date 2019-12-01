@@ -143,6 +143,12 @@ Scene.prototype.scenario = function(){
         case 4:
             ctx.drawImage(mapAssets.img("toyroom3"),0,0,800,640,0,0,canvas.width,canvas.height);
             break;
+        case 5:
+            ctx.drawImage(mapAssets.img("bridge"),0,0,640,480,0,0,canvas.width,canvas.height);
+            break;
+        default:
+            break;
+            
     }
 }
 
