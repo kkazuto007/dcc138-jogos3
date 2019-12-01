@@ -391,11 +391,11 @@
                 }
                 if (this.props.riding == 1){
                     if (teclas.espaco && this.cooldown <= 0) {
-                        if(this.lado === 0){
-                            this.ax -= 50;
+                        if(this.lado <= 0.5){
+                            this.vx -= 50;
                         }
                         else{
-                            this.ax += 50;
+                            this.vx += 50;
                         }
                     }
                 }

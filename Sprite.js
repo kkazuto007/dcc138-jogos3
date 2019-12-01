@@ -45,6 +45,7 @@ Sprite.prototype.desenhar = function (ctx) {
         var F = Math.floor(this.frame * (-1) * this.vx/30);
     }
 
+    //pc
     if(this.props.tipo === "pc"){
         ctx.drawImage(this.scene.assets.img("bear"),
         F%2 * 16 + (this.modelo * 32),
@@ -58,70 +59,32 @@ Sprite.prototype.desenhar = function (ctx) {
         );
     }
 
+    //toyroom
     else if(this.props.tipo === "seeker" ){
-           if(this.comportamentoativo <= 0.5){
-                 ctx.drawImage(this.scene.assets.img("seeker"),
-                 0,
-                 0,
-                 32,
-                 32,
-                 -this.w/2,
-                 -this.h/2,
-                 this.w,
-                 this.h
-                );
-            }
-            else if(this.comportamentoativo >= 0.5){
-                 ctx.drawImage(this.scene.assets.img("seeker"),
-                 32,
-                 0,
-                 32,
-                 32,
-                 -this.w/2,
-                 -this.h/2,
-                 this.w,
-                 this.h
-                );
-            }
-    }
-
-    else if(this.props.tipo === "bearrider" ){
-        ctx.drawImage(this.scene.assets.img("rider"),
-        F%2 * 32,
-        Math.floor(this.lado) * 32,
-        32,
-        32,
-        -this.w/2,
-        -this.h/2,
-        this.w*2,
-        this.h*2
-       );
-    }
-
-    else if(this.props.tipo === "charger" ){
-        ctx.drawImage(this.scene.assets.img("rider2"),
-        F%2 * 32,
-        Math.floor(this.lado) * 32,
-        32,
-        32,
-        -this.w/2,
-        -this.h/2,
-        this.w*2,
-        this.h*2
-       );
-    }
-
-    else if(this.props.tipo === "rider" ){
-        ctx.drawImage(this.scene.assets.img("rider3"),
-        F%2 * 32,
-        Math.floor(this.lado) * 32,
-        32,
-        32,
-        -this.w/2,
-        -this.h/2,
-        this.w*2,
-        this.h*2
-       );
+        if(this.comportamentoativo <= 0.5){
+            ctx.drawImage(this.scene.assets.img("seeker"),
+                0,
+                0,
+                32,
+                32,
+                -this.w/2,
+                -this.h/2,
+                this.w,
+                this.h
+            );
+        }
+        else if(this.comportamentoativo >= 0.5){
+                ctx.drawImage(this.scene.assets.img("seeker"),
+                32,
+                0,
+                32,
+                32,
+                -this.w/2,
+                -this.h/2,
+                this.w,
+                this.h
+            );
+        }
     }
     else if(this.props.tipo === "pulo"){
         ctx.drawImage(mapAssets.img("toytiles"),
@@ -135,6 +98,46 @@ Sprite.prototype.desenhar = function (ctx) {
         this.h
         );
     }
+
+    //bridge
+    else if(this.props.tipo === "bearrider" ){
+        ctx.drawImage(this.scene.assets.img("rider"),
+        F%2 * 32,
+        Math.floor(this.lado) * 32,
+        32,
+        32,
+        -this.w/2,
+        -this.h/2,
+        this.w*2,
+        this.h*2
+       );
+    }
+    else if(this.props.tipo === "charger" ){
+        ctx.drawImage(this.scene.assets.img("rider2"),
+        F%2 * 32,
+        Math.floor(this.lado) * 32,
+        32,
+        32,
+        -this.w/2,
+        -this.h/2,
+        this.w*2,
+        this.h*2
+       );
+    }
+    else if(this.props.tipo === "rider" ){
+        ctx.drawImage(this.scene.assets.img("rider3"),
+        F%2 * 32,
+        Math.floor(this.lado) * 32,
+        32,
+        32,
+        -this.w/2,
+        -this.h/2,
+        this.w*2,
+        this.h*2
+       );
+    }
+
+    //void
     else if(this.props.tipo === "eldritch" ){
         if(this.comportamentoativo <= 0.5){
               ctx.drawImage(this.scene.assets.img("eldritch"),
@@ -193,6 +196,8 @@ Sprite.prototype.desenhar = function (ctx) {
     }
     ctx.restore();
 }
+
+
 
 Sprite.prototype.mover = function (dt) {
     this.frame += 16 * dt;
