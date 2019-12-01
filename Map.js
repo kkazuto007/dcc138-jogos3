@@ -5,7 +5,6 @@ function Map(modelo) {
         COLUMNS: 32,
         SIZE: 32,
         mapindice: [],
-        set: 0,
     }
     Object.assign(this, exemplo, modelo);
     for (var c = 0; c < this.COLUMNS; c++) {

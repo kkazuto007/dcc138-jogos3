@@ -70,7 +70,7 @@ Scene.prototype.checaColisao = function(){
                     this.sprites[i].y = this.sprites[i].y;
                     this.mapindice++;
                     this.teleportes = 0;
-                    this.limpezaSprites();
+                    ///this.limpezaSprites();
                 }
                 else
                 if(this.sprites[i].props.tipo === "pc"
@@ -79,7 +79,7 @@ Scene.prototype.checaColisao = function(){
                     this.sprites[i].y = this.sprites[i].y;
                     this.mapindice--;
                     this.teleportes = 0;
-                    this.limpezaSprites();
+                    ///this.limpezaSprites();
                 }
             }
         }
@@ -100,14 +100,17 @@ Scene.prototype.desenharMapa = function () {
     this.map[this.mapindice].desenhar(this.ctx);
 }
 
-
+/*
 Scene.prototype.limpezaSprites = function(){
     for(var i = 0; i<this.sprites.length; i++){
-        if(this.sprites[i].props.tipo != "pc"){
+        if(this.sprites[i].props.tipo != "pc" &&
+        this.sprites[i].props.tipo != "teleporteesq" && 
+        this.sprites[i].props.tipo != "teleportedir"){
             this.toRemove.push(this.sprites[i]);
         }
     }
 }
+*/
 
 Scene.prototype.scenario = function(){
     this.map.push(this.map[this.mapindice]); //trocar pro indice NO PRÓPRIO MAPA
@@ -120,11 +123,11 @@ Scene.prototype.scenario = function(){
             break
         case 2:
             ctx.drawImage(mapAssets.img("toyroom1"),0,0,800,640,0,0,canvas.width,canvas.height); 
-            if(this.map[this.mapindice].set <= 0.5){
+            /*if(this.set <= 0.5){
                 var pulo = new Sprite({ x: 290, y: 480, w:64, h: 64, props: { tipo: "pulo" }});
                 this.adicionar(pulo);
-                this.map[this.mapindice].set = 1;
-            }
+                this.set = 1;
+            }*/
             break
         case 3:
             ctx.drawImage(mapAssets.img("toyroom2"),0,0,800,640,0,0,canvas.width,canvas.height);
@@ -143,11 +146,11 @@ Scene.prototype.setTeleporte = function(){
         var teleportedir = new Sprite({ x: canvas.width-48, y: 300, w:32, h: 640, props: { tipo: "teleportedir" }});
         cena2.adicionar(teleportedir);
 
-///        var teleportecim = new Sprite({ x: 0, y: 0, w:800, h: 32, props: { tipo: "teleportecim" }});
-///        cena2.adicionar(teleportecim);
+        var teleportecim = new Sprite({ x: 0, y: 0, w:800, h: 32, props: { tipo: "teleportecim" }});
+        cena2.adicionar(teleportecim);
 
-///        var teleportebai = new Sprite({ x: 0, y: canvas.height-48, w:800, h: 32, props: { tipo: "teleportebai" }});
-///        cena2.adicionar(teleportebai);
+        var teleportebai = new Sprite({ x: 0, y: canvas.height-48, w:800, h: 32, props: { tipo: "teleportebai" }});
+        cena2.adicionar(teleportebai);
     }
     this.teleportes = 1;
 }
