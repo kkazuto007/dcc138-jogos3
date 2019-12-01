@@ -118,6 +118,11 @@ Scene.prototype.scenario = function(){
     switch(this.map[this.mapindice].mapindice){
         case 0:
             ctx.drawImage(mapAssets.img("toyroom1"),0,0,800,640,0,0,canvas.width,canvas.height);
+            if(this.set <= 0.5){
+                var npc = new Sprite({ x: 480, y: 440, w:32, h: 32, props: { tipo: "seeker" }, comportar: flutuante(pc)});
+                cena2.adicionar(npc);
+                this.set = 1;
+            }
             break;
         case 1:
             ctx.drawImage(mapAssets.img("toyroom3"),0,0,800,640,0,0,canvas.width,canvas.height);
