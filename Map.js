@@ -30,13 +30,8 @@ Map.prototype.desenhar = function (ctx) {
             switch (this.cells[c][l].tipo) {
                 case 0:
                     break;
-                case 1:
-                    break;
                 case 2:
                     ctx.drawImage(mapAssets.img("toytiles"),0,0,64,64, c* this.SIZE, l * this.SIZE,this.SIZE,this.SIZE);
-                    break;
-                case 2:
-
                     break;
                 //case 3: sustentação
                 case 1000:

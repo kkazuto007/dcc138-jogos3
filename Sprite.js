@@ -18,7 +18,7 @@ function Sprite(params = {}) {
         rate: 0,
         lado: 1,
         frame: 0,
-        escudo: 0,
+        modelo: 1,
         spawn: {},
         props: {},
         cooldown: 0,
@@ -46,7 +46,7 @@ Sprite.prototype.desenhar = function (ctx) {
     }
     if(this.props.tipo === "pc"){
         ctx.drawImage(this.scene.assets.img("bear"),
-        Math.floor(F%2) * 16 + (this.escudo * 32),
+        Math.floor(F%2) * 16 + (this.modelo * 32),
         Math.floor(this.lado) * 16,
         16,
         16,

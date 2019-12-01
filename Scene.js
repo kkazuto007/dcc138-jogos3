@@ -126,7 +126,9 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("toyroom1"),0,0,800,640,0,0,canvas.width,canvas.height); 
             if(this.set <= 0.5){
                 var pulo = new Sprite({ x: 290, y: 480, w:64, h: 64, props: { tipo: "pulo" }});
+                var pulo2 = new Sprite({ x: 484, y: 480, w:64, h: 64, props: { tipo: "pulo" }});
                 this.adicionar(pulo);
+                this.adicionar(pulo2);
                 this.set = 1;
             }
             break
