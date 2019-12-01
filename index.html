@@ -22,17 +22,30 @@
         mapAssets.loadImage("bridge","./assets/bridge/bridge.png");
         assetsMng.loadImage("bear","./assets/main/bear.png");
         
-        
+        //toyroom
         mapAssets.loadImage("toyroom1","./assets/toyroom/toyroom1.png");
         mapAssets.loadImage("toyroom2","./assets/toyroom/toyroom2.png");
         mapAssets.loadImage("toyroom3","./assets/toyroom/toyroom3.png");
         mapAssets.loadImage("toytiles","./assets/toyroom/toytiles.png");
         assetsMng.loadImage("seeker","./assets/toyroom/seeker.png");
         
+        //bridge
         assetsMng.loadImage("rider","./assets/main/rider.png");
         assetsMng.loadImage("rider2","./assets//bridge/rider2.png");
         assetsMng.loadImage("rider3","./assets/bridge/rider3.png");
 
+        //void
+        mapAssets.loadImage("void1","./assets/void/void1.png");
+        mapAssets.loadImage("void2","./assets/void/void2.png");
+        mapAssets.loadImage("void3","./assets/void/void3.png");
+        mapAssets.loadImage("void4","./assets/void/void4.png");
+        mapAssets.loadImage("voidtile","./assets/void/voidtile.png");
+        mapAssets.loadImage("voidtile2","./assets/void/voidtile2.png");
+        assetsMng.loadImage("eldritch","./assets/void/eldritch.png");
+        assetsMng.loadImage("eldritch2","./assets/void/eldritch2.png");
+
+
+        //random /tests/
         mapAssets.loadImage("pleiades","./assets/pleiades.jpg");
         mapAssets.loadImage("toyblocks","./assets/toyblocks.png");
         mapAssets.loadImage("rocket","./assets/rocket.png");
@@ -274,7 +287,7 @@
         var cena1 = new Scene({ ctx: ctx, w: canvas.width, h: canvas.height, assets: mapAssets, map:mapas });
         var cena2 = new Scene({ ctx: ctx, w: canvas.width, h: canvas.height, assets: assetsMng, map:mapas });
 
-        var pc = new Sprite({ x: 120, y: 440, w:24, h: 24, vx: 20,vy: 20, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
+        var pc = new Sprite({ x: 120, y: 440, w:24, h: 24, vx: 20,vy: 20, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc", riding: 0 }});
         cena2.adicionar(pc);
 
         var npc3 = new Sprite({ x: 480, y: 300, w:32, h: 32, props: { tipo: "npc" }, comportar: dialogo(pc)});
@@ -371,19 +384,20 @@
                 if (teclas.esquerda) { this.ax = -300, this.lado = 0; }
                 if (teclas.direita) { this.ax = +300, this.lado = 1; }
                 if (teclas.esquerda === teclas.direita) { this.ax = 0; }
-
-                if (teclas.cima && this.cooldown <=0) { this.cooldown = 0.75; this.vy = -500;  }
-                if ( this.pulo >= 0.5) { this.pulo = 0, this.vy = -800;  }
-                if (teclas.cima === teclas.baixo) { this.ay = 0; }
-
-                if (teclas.espaco && this.cooldown <= 0) {
-                    var tiro = new Sprite({
-                        x: this.x, y: this.y-8,
-                        a: this.a - 0.1 + 0.2 * Math.random(),
-                        w: 64, h: 64,
-                        props: { tipo: "tiro" }
-                    });
-                    this.scene.adicionar(tiro);
+                if (this.props.riding != 1){
+                    if (teclas.cima && this.cooldown <=0) { this.cooldown = 0.75; this.vy = -500;  }
+                    if ( this.pulo >= 0.5) { this.pulo = 0, this.vy = -800;  }
+                    if (teclas.cima === teclas.baixo) { this.ay = 0; }
+                }
+                if (this.props.riding == 1){
+                    if (teclas.espaco && this.cooldown <= 0) {
+                        if(this.lado === 0){
+                            this.ax -= 50;
+                        }
+                        else{
+                            this.ax += 50;
+                        }
+                    }
                 }
             }
         }

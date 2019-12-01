@@ -126,9 +126,7 @@ Scene.prototype.desenharMapa = function () {
 Scene.prototype.limpezaSprites = function(){
     for(var i = 0; i<this.sprites.length; i++){
         if(this.sprites[i].props.tipo != "pc" &&
-        this.sprites[i].props.tipo != "bearrider" &&
-        this.sprites[i].props.tipo != "teleporteesq" && 
-        this.sprites[i].props.tipo != "teleportedir"){
+        this.sprites[i].props.tipo != "bearrider"){
             this.toRemove.push(this.sprites[i]);
         }
     }
@@ -165,6 +163,7 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("toyroom3"),0,0,800,640,0,0,canvas.width,canvas.height);
             if(this.set <=0.5){
                 pc.props.tipo = "pc";
+                pc.props.riding = 0;
                 this.set = 1;
             }
             break;
@@ -172,8 +171,12 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("bridge"),0,0,300,480,0,0,canvas.width,canvas.height);
             if(this.set <=0.5){
                 var npc = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "charger" }, comportar: charge(pc)});
+                var npc2 = new Sprite({ x: 200, y: 480, w:32, h: 32, lado: 0, props: { tipo: "charger" }, comportar: charge(pc)});
                 cena2.adicionar(npc);
-                pc.props.tipo = "bearrider";
+                cena2.adicionar(npc2);
+                pc.props.tipo = "bearrider";                
+                pc.props.riding = 1;
+
                 this.set = 1;
             }
             break;

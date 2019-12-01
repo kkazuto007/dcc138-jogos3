@@ -123,7 +123,7 @@ Sprite.prototype.desenhar = function (ctx) {
         this.h*2
        );
     }
-    if(this.props.tipo === "pulo"){
+    else if(this.props.tipo === "pulo"){
         ctx.drawImage(mapAssets.img("toytiles"),
         64,
         0,
@@ -135,6 +135,60 @@ Sprite.prototype.desenhar = function (ctx) {
         this.h
         );
     }
+    else if(this.props.tipo === "eldritch" ){
+        if(this.comportamentoativo <= 0.5){
+              ctx.drawImage(this.scene.assets.img("eldritch"),
+              0,
+              0,
+              32,
+              32,
+              -this.w/2,
+              -this.h/2,
+              this.w,
+              this.h
+             );
+         }
+         else if(this.comportamentoativo >= 0.5){
+              ctx.drawImage(this.scene.assets.img("eldritch"),
+              32,
+              0,
+              32,
+              32,
+              -this.w/2,
+              -this.h/2,
+              this.w,
+              this.h
+             );
+         }
+    }
+    else if(this.props.tipo === "eldritch2" ){
+        if(this.comportamentoativo <= 0.5){
+              ctx.drawImage(this.scene.assets.img("eldritch2"),
+              0,
+              0,
+              32,
+              32,
+              -this.w/2,
+              -this.h/2,
+              this.w,
+              this.h
+             );
+         }
+         else if(this.comportamentoativo >= 0.5){
+              ctx.drawImage(this.scene.assets.img("eldritch2"),
+              32,
+              0,
+              32,
+              32,
+              -this.w/2,
+              -this.h/2,
+              this.w,
+              this.h
+             );
+         }
+    }
+
+
     else{
     }
     ctx.restore();
