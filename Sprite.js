@@ -16,7 +16,7 @@ function Sprite(params = {}) {
         morto: 0,
         comportamentoativo: 0,
         rate: 0,
-        lado: 0,
+        lado: 1,
         frame: 0,
         escudo: 0,
         spawn: {},
@@ -44,9 +44,6 @@ Sprite.prototype.desenhar = function (ctx) {
     else {
         var F = Math.floor(this.frame * (-1) * this.vx/30);
     }
-    
-    ctx.fillStyle = "black";
-    ctx.fillRect(-this.w/2,-this.h/2,this.w,this.h);
     if(this.props.tipo === "pc"){
         ctx.drawImage(this.scene.assets.img("bear"),
         Math.floor(F%2) * 16 + (this.escudo * 32),

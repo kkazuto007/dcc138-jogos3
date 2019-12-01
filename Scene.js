@@ -8,7 +8,8 @@ function Scene(params) {
         assets: null,
         map: null,
         mapindice: 0,
-        teleportes: 0
+        teleportes: 0,
+        set: 0,
     }
     Object.assign(this, exemplo, params);
 }
@@ -70,7 +71,8 @@ Scene.prototype.checaColisao = function(){
                     this.sprites[i].y = this.sprites[i].y;
                     this.mapindice++;
                     this.teleportes = 0;
-                    ///this.limpezaSprites();
+                    this.set = 0;
+                    this.limpezaSprites();
                 }
                 else
                 if(this.sprites[i].props.tipo === "pc"
@@ -79,7 +81,8 @@ Scene.prototype.checaColisao = function(){
                     this.sprites[i].y = this.sprites[i].y;
                     this.mapindice--;
                     this.teleportes = 0;
-                    ///this.limpezaSprites();
+                    this.set = 0;
+                    this.limpezaSprites();
                 }
             }
         }
@@ -100,7 +103,6 @@ Scene.prototype.desenharMapa = function () {
     this.map[this.mapindice].desenhar(this.ctx);
 }
 
-/*
 Scene.prototype.limpezaSprites = function(){
     for(var i = 0; i<this.sprites.length; i++){
         if(this.sprites[i].props.tipo != "pc" &&
@@ -110,7 +112,6 @@ Scene.prototype.limpezaSprites = function(){
         }
     }
 }
-*/
 
 Scene.prototype.scenario = function(){
     this.map.push(this.map[this.mapindice]); //trocar pro indice NO PRÓPRIO MAPA
@@ -123,11 +124,11 @@ Scene.prototype.scenario = function(){
             break
         case 2:
             ctx.drawImage(mapAssets.img("toyroom1"),0,0,800,640,0,0,canvas.width,canvas.height); 
-            /*if(this.set <= 0.5){
+            if(this.set <= 0.5){
                 var pulo = new Sprite({ x: 290, y: 480, w:64, h: 64, props: { tipo: "pulo" }});
                 this.adicionar(pulo);
                 this.set = 1;
-            }*/
+            }
             break
         case 3:
             ctx.drawImage(mapAssets.img("toyroom2"),0,0,800,640,0,0,canvas.width,canvas.height);

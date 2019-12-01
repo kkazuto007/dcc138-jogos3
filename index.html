@@ -187,7 +187,7 @@
         var cena1 = new Scene({ ctx: ctx, w: canvas.width, h: canvas.height, assets: mapAssets, map:mapas });
         var cena2 = new Scene({ ctx: ctx, w: canvas.width, h: canvas.height, assets: assetsMng, map:mapas });
 
-        var pc = new Sprite({ x: 120, y: 100, w:32, h: 32, vx: 20,vy: 20, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
+        var pc = new Sprite({ x: 120, y: 100, w:16, h: 16, vx: 20,vy: 20, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
         cena2.adicionar(pc);
          
 
