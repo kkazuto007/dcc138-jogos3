@@ -16,8 +16,9 @@ function Sprite(params = {}) {
         morto: 0,
         comportamentoativo: 0,
         rate: 0,
-        lado: 1,
+        lado: 0,
         frame: 0,
+        escudo: 0,
         spawn: {},
         props: {},
         cooldown: 0,
@@ -36,18 +37,29 @@ Sprite.prototype.constructor = Sprite;
 Sprite.prototype.desenhar = function (ctx) {
     ctx.save();
     ctx.translate(this.x, this.y);
-    if (this.ax >= 0) {
-        if (this.ay >= 0) {
-            var F = Math.floor(this.frame * this.ax / 10 + this.frame * this.ay / 10 + this.frame * this.rate);
-        }
-        else {
-            var F = Math.floor(this.frame * (-1) * this.ay / 10);
-        }
+
+    if (this.vx >= 0) {
+        var F = Math.floor(this.frame * this.vx/30);
     }
     else {
-        var F = Math.floor(this.frame * (-1) * this.ax / 10);
+        var F = Math.floor(this.frame * (-1) * this.vx/30);
     }
-    if(this.props.tipo === "seeker" ){
+    
+    ctx.fillStyle = "black";
+    ctx.fillRect(-this.w/2,-this.h/2,this.w,this.h);
+    if(this.props.tipo === "pc"){
+        ctx.drawImage(this.scene.assets.img("bear"),
+        Math.floor(F%2) * 16 + (this.escudo * 32),
+        Math.floor(this.lado) * 16,
+        16,
+        16,
+        -this.w/2,
+        -this.h/2,
+        this.w,
+        this.h
+        );
+    }
+    else if(this.props.tipo === "seeker" ){
            if(this.comportamentoativo <= 0.5){
                  ctx.drawImage(this.scene.assets.img("seeker"),
                  0,
@@ -58,7 +70,8 @@ Sprite.prototype.desenhar = function (ctx) {
                  -this.h/2,
                  this.w,
                  this.h
-               );}
+                );
+            }
             else if(this.comportamentoativo >= 0.5){
                  ctx.drawImage(this.scene.assets.img("seeker"),
                  32,
@@ -69,17 +82,29 @@ Sprite.prototype.desenhar = function (ctx) {
                  -this.h/2,
                  this.w,
                  this.h
-            )};
+                );
+            }
+    }
+
+    if(this.props.tipo === "pulo"){
+        ctx.drawImage(mapAssets.img("toytiles"),
+        64,
+        0,
+        64,
+        64,
+        -this.w/2,
+        -this.h/2,
+        this.w,
+        this.h
+        );
     }
     else{
-        ctx.fillStyle = "gold";
-        ctx.fillRect(-this.w/2,-this.h/2,this.w,this.h);
     }
     ctx.restore();
 }
 
-    Sprite.prototype.mover = function (dt) {
-    this.frame += 4 * dt;
+Sprite.prototype.mover = function (dt) {
+    this.frame += 16 * dt;
     if (Math.floor(this.frame) >= 20) {
         this.frame = 0;
     }
