@@ -44,9 +44,10 @@ Sprite.prototype.desenhar = function (ctx) {
     else {
         var F = Math.floor(this.frame * (-1) * this.vx/30);
     }
+
     if(this.props.tipo === "pc"){
         ctx.drawImage(this.scene.assets.img("bear"),
-        Math.floor(F%2) * 16 + (this.modelo * 32),
+        F%2 * 16 + (this.modelo * 32),
         Math.floor(this.lado) * 16,
         16,
         16,
@@ -56,6 +57,7 @@ Sprite.prototype.desenhar = function (ctx) {
         this.h
         );
     }
+
     else if(this.props.tipo === "seeker" ){
            if(this.comportamentoativo <= 0.5){
                  ctx.drawImage(this.scene.assets.img("seeker"),
@@ -83,6 +85,44 @@ Sprite.prototype.desenhar = function (ctx) {
             }
     }
 
+    else if(this.props.tipo === "bearrider" ){
+        ctx.drawImage(this.scene.assets.img("rider"),
+        F%2 * 32,
+        Math.floor(this.lado) * 32,
+        32,
+        32,
+        -this.w/2,
+        -this.h/2,
+        this.w*2,
+        this.h*2
+       );
+    }
+
+    else if(this.props.tipo === "charger" ){
+        ctx.drawImage(this.scene.assets.img("rider2"),
+        F%2 * 32,
+        Math.floor(this.lado) * 32,
+        32,
+        32,
+        -this.w/2,
+        -this.h/2,
+        this.w*2,
+        this.h*2
+       );
+    }
+
+    else if(this.props.tipo === "rider" ){
+        ctx.drawImage(this.scene.assets.img("rider3"),
+        F%2 * 32,
+        Math.floor(this.lado) * 32,
+        32,
+        32,
+        -this.w/2,
+        -this.h/2,
+        this.w*2,
+        this.h*2
+       );
+    }
     if(this.props.tipo === "pulo"){
         ctx.drawImage(mapAssets.img("toytiles"),
         64,

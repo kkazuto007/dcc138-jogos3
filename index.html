@@ -21,14 +21,17 @@
 
         mapAssets.loadImage("bridge","./assets/bridge/bridge.png");
         assetsMng.loadImage("bear","./assets/main/bear.png");
-
-
+        
+        
         mapAssets.loadImage("toyroom1","./assets/toyroom/toyroom1.png");
         mapAssets.loadImage("toyroom2","./assets/toyroom/toyroom2.png");
         mapAssets.loadImage("toyroom3","./assets/toyroom/toyroom3.png");
         mapAssets.loadImage("toytiles","./assets/toyroom/toytiles.png");
         assetsMng.loadImage("seeker","./assets/toyroom/seeker.png");
-
+        
+        assetsMng.loadImage("rider","./assets/main/rider.png");
+        assetsMng.loadImage("rider2","./assets//bridge/rider2.png");
+        assetsMng.loadImage("rider3","./assets/bridge/rider3.png");
 
         mapAssets.loadImage("pleiades","./assets/pleiades.jpg");
         mapAssets.loadImage("toyblocks","./assets/toyblocks.png");
@@ -273,12 +276,6 @@
 
         var pc = new Sprite({ x: 120, y: 440, w:24, h: 24, vx: 20,vy: 20, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
         cena2.adicionar(pc);
-         
-
-        
-
-        var npc2 = new Sprite({ x: 480, y: 300, w:32, h: 32, props: { tipo: "npc" }, comportar: charge(pc)});
-        cena2.adicionar(npc2);
 
         var npc3 = new Sprite({ x: 480, y: 300, w:32, h: 32, props: { tipo: "npc" }, comportar: dialogo(pc)});
         cena2.adicionar(npc3);
@@ -301,6 +298,12 @@
            return function () {
                if(Math.sqrt((alvo.x - this.x)*(alvo.x - this.x)) +(alvo.y-this.y)*(alvo.y-this.y) <= 200){
                  this.ax = 200*Math.sign(alvo.x - this.x);
+                 if(alvo.x <= this.x){
+                     this.lado = 0;
+                 }
+                 else{
+                     this.lado = 1;
+                 }
                }
             }
         }

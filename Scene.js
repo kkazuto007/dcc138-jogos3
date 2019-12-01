@@ -84,6 +84,26 @@ Scene.prototype.checaColisao = function(){
                     this.set = 0;
                     this.limpezaSprites();
                 }
+                else
+                if(this.sprites[i].props.tipo === "bearrider"
+                && this.sprites[j].props.tipo ==="teleportedir"){
+                    this.sprites[i].x = 80;
+                    this.sprites[i].y = this.sprites[i].y;
+                    this.mapindice++;
+                    this.teleportes = 0;
+                    this.set = 0;
+                    this.limpezaSprites();
+                }
+                else
+                if(this.sprites[i].props.tipo === "bearrider"
+                && this.sprites[j].props.tipo ==="teleporteesq"){
+                    this.sprites[i].x = 720;
+                    this.sprites[i].y = this.sprites[i].y;
+                    this.mapindice--;
+                    this.teleportes = 0;
+                    this.set = 0;
+                    this.limpezaSprites();
+                }
             }
         }
     }  
@@ -106,6 +126,7 @@ Scene.prototype.desenharMapa = function () {
 Scene.prototype.limpezaSprites = function(){
     for(var i = 0; i<this.sprites.length; i++){
         if(this.sprites[i].props.tipo != "pc" &&
+        this.sprites[i].props.tipo != "bearrider" &&
         this.sprites[i].props.tipo != "teleporteesq" && 
         this.sprites[i].props.tipo != "teleportedir"){
             this.toRemove.push(this.sprites[i]);
@@ -142,15 +163,38 @@ Scene.prototype.scenario = function(){
             break
         case 4:
             ctx.drawImage(mapAssets.img("toyroom3"),0,0,800,640,0,0,canvas.width,canvas.height);
+            if(this.set <=0.5){
+                pc.props.tipo = "pc";
+                this.set = 1;
+            }
             break;
         case 5:
             ctx.drawImage(mapAssets.img("bridge"),0,0,300,480,0,0,canvas.width,canvas.height);
+            if(this.set <=0.5){
+                var npc = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "charger" }, comportar: charge(pc)});
+                cena2.adicionar(npc);
+                pc.props.tipo = "bearrider";
+                this.set = 1;
+            }
             break;
         case 6:
             ctx.drawImage(mapAssets.img("bridge"),0,0,600,480,0,0,canvas.width,canvas.height);
+            pc.props.tipo = "bearrider";
+            if(this.set <=0.5){
+                var general = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "rider" }, comportar: charge(pc)});
+                cena2.adicionar(general);
+                pc.props.tipo = "bearrider";
+                this.set = 1;
+            }
             break;
         case 7:
             ctx.drawImage(mapAssets.img("bridge"),300,0,300,480,0,0,canvas.width,canvas.height);
+            if(this.set <=0.5){
+                var npc2 = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "charger" }, comportar: charge(pc)});
+                cena2.adicionar(npc2);
+                pc.props.tipo = "bearrider";
+                this.set = 1;
+            }
             break;
         default:
             break;
