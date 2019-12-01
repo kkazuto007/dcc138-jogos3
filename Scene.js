@@ -140,8 +140,8 @@ Scene.prototype.passo = function(dt){
     this.limpar();
     this.scenario();
     this.setTeleporte();
-    this.desenhar();
     this.desenharMapa();
+    this.desenhar();
     this.comportar();
     this.mover(dt);
     this.checaColisao();

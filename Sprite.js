@@ -47,21 +47,47 @@ Sprite.prototype.desenhar = function (ctx) {
     else {
         var F = Math.floor(this.frame * (-1) * this.ax / 10);
     }
-    ctx.fillStyle = "blue";
-    ctx.fillRect(-this.w/2,-this.h/2,this.w,this.h);
+    if(this.props.tipo === "seeker" ){
+           if(this.comportamentoativo <= 0.5){
+                 ctx.drawImage(this.scene.assets.img("seeker"),
+                 0,
+                 0,
+                 32,
+                 32,
+                 -this.w/2,
+                 -this.h/2,
+                 this.w,
+                 this.h
+               );}
+            else if(this.comportamentoativo >= 0.5){
+                 ctx.drawImage(this.scene.assets.img("seeker"),
+                 32,
+                 0,
+                 32,
+                 32,
+                 -this.w/2,
+                 -this.h/2,
+                 this.w,
+                 this.h
+            )};
+    }
+    else{
+        ctx.fillStyle = "gold";
+        ctx.fillRect(-this.w/2,-this.h/2,this.w,this.h);
+    }
     ctx.restore();
 }
 
-Sprite.prototype.mover = function (dt) {
+    Sprite.prototype.mover = function (dt) {
     this.frame += 4 * dt;
     if (Math.floor(this.frame) >= 20) {
         this.frame = 0;
     }
-    if(this.props.tipo != 'npc'){
-        this.moverOrtogonal(dt);
+    if(this.props.tipo != 'pc'){
+        this.moverNpc(dt);
     }
     else{
-        this.moverNpc(dt);
+        this.moverOrtogonal(dt);
     }
 }
 

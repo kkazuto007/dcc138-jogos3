@@ -25,6 +25,7 @@
         mapAssets.loadImage("toyroom2","./assets/toyroom/toyroom2.png");
         mapAssets.loadImage("toyroom3","./assets/toyroom/toyroom3.png");
         mapAssets.loadImage("toytiles","./assets/toyroom/toytiles.png");
+        assetsMng.loadImage("seeker","./assets/toyroom/seeker.png");
 
         mapAssets.loadImage("pleiades","./assets/pleiades.jpg");
         mapAssets.loadImage("toyblocks","./assets/toyblocks.png");
@@ -188,7 +189,7 @@
         var pulo = new Sprite({ x: 304, y: 480, w:32, h: 32, props: { tipo: "pulo" }});
         cena2.adicionar(pulo);
 
-        var npc = new Sprite({ x: 480, y: 300, w:32, h: 32, props: { tipo: "npc" }, comportar: flutuante(pc)});
+        var npc = new Sprite({ x: 480, y: 300, w:32, h: 32, props: { tipo: "seeker" }, comportar: flutuante(pc)});
         cena2.adicionar(npc);
 
         var npc2 = new Sprite({ x: 480, y: 300, w:32, h: 32, props: { tipo: "npc" }, comportar: charge(pc)});
@@ -201,9 +202,9 @@
         function flutuante(alvo) {
            return function () {
                if(Math.sqrt((alvo.x - this.x)*(alvo.x - this.x)) + (alvo.y-this.y)*(alvo.y-this.y) <= 320){
-                  this.compotamentoativo = 1;
+                  this.comportamentoativo = 1;
                }
-               if(this.compotamentoativo >= 1){
+               if(this.comportamentoativo >= 1){
                   this.ax = 80*Math.sign(alvo.x - this.x);
                   this.ay = 80*Math.sign(alvo.y - this.y)- 980;
                }
