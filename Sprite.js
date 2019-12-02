@@ -138,9 +138,9 @@ Sprite.prototype.desenhar = function (ctx) {
     }
 
     //void
-    else if(this.props.tipo === "eldritch" ){
+    else if(this.props.tipo === "eldritch1" ){
         if(this.comportamentoativo <= 0.5){
-              ctx.drawImage(this.scene.assets.img("eldritch"),
+              ctx.drawImage(this.scene.assets.img("eldritch1"),
               0,
               0,
               32,
@@ -152,7 +152,7 @@ Sprite.prototype.desenhar = function (ctx) {
              );
          }
          else if(this.comportamentoativo >= 0.5){
-              ctx.drawImage(this.scene.assets.img("eldritch"),
+              ctx.drawImage(this.scene.assets.img("eldritch1"),
               32,
               0,
               32,
@@ -190,8 +190,18 @@ Sprite.prototype.desenhar = function (ctx) {
              );
          }
     }
-
-
+    else if(this.props.tipo === "hatyoukai" ){
+        ctx.drawImage(this.scene.assets.img("hatyoukai"),
+            F%3 * 32,
+            0,
+            32,
+            32,
+            -this.w/2,
+            -this.h/2,
+            this.w,
+            this.h
+        );
+    }
     else{
     }
     ctx.restore();

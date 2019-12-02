@@ -167,6 +167,13 @@ Scene.prototype.scenario = function(){
                 this.set = 1;
             }
             break;
+
+
+
+
+
+
+        //bridge
         case 5:
             ctx.drawImage(mapAssets.img("bridge"),0,0,300,480,0,0,canvas.width,canvas.height);
             if(this.set <=0.5){
@@ -199,39 +206,76 @@ Scene.prototype.scenario = function(){
                 this.set = 1;
             }
             break;
+            
+        
+
+
+
+
+        //void
         case 8:
             ctx.drawImage(mapAssets.img("void3"),0,0,640,576,0,0,canvas.width,canvas.height);
+            if(this.set <= 0.5){
+                var npc = new Sprite({ x: 480, y: 360, w:64, h: 64, props: { tipo: "eldritch1" }, comportar: flutuante(pc)});
+                cena2.adicionar(npc);
+                this.set = 1;
+            }
             break
         case 9:
             ctx.drawImage(mapAssets.img("void4"),0,0,640,576,0,0,canvas.width,canvas.height);
+            if(this.set <= 0.5){
+                var npc = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch1" }, comportar: flutuante(pc)});
+                cena2.adicionar(npc);
+                this.set = 1;
+            }
             break
         case 10:
             ctx.drawImage(mapAssets.img("void3"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
             break;
         case 11:
-            ctx.fillStyle = "darkred";
+            ctx.fillStyle = "dimgray";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(mapAssets.img("void1"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
             break;
         case 12:
-            ctx.fillStyle = "darkred";
+            ctx.fillStyle = "gray";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(mapAssets.img("void2"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
+            if(this.set <= 0.5){
+                var npc = new Sprite({ x: 480, y: 480, w:64, h: 64, props: { tipo: "eldritch1" }, comportar: flutuante(pc)});
+                var npc2 = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, comportar: flutuante(pc)});
+                cena2.adicionar(npc);
+                cena2.adicionar(npc2);
+                this.set = 1;
+            }
             break;
         case 13:
             ctx.fillStyle = "white";
             ctx.fillRect(0, 0, canvas.width, canvas.height);    
             ctx.drawImage(mapAssets.img("void1"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
+            if(this.set <= 0.5){
+                var npc = new Sprite({ x: 480, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, comportar: flutuante(pc)});
+                var npc2 = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, comportar: flutuante(pc)});
+                cena2.adicionar(npc);
+                cena2.adicionar(npc2);
+                this.set = 1;
+            }
             break;
         case 14:
-            ctx.fillStyle = "white";
+            ctx.fillStyle = "azure";
             ctx.fillRect(0, 0, canvas.width, canvas.height);    
             ctx.drawImage(mapAssets.img("void2"),0,0,640,576,0,0,canvas.width,canvas.height);
+            ctx.drawImage(mapAssets.img("cocoon"),0,0,160,144,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
+            if(this.set <= 0.5){
+                var hatyoukai = new Sprite({ x: 480, y: 360, w:64, h: 64, props: { tipo: "hatyoukai" }, comportar: flutuante(pc)});
+                cena2.adicionar(hatyoukai);
+                this.set = 1;
+            }
             break;
         default:
             break;
