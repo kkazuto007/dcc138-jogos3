@@ -199,6 +199,40 @@ Scene.prototype.scenario = function(){
                 this.set = 1;
             }
             break;
+        case 8:
+            ctx.drawImage(mapAssets.img("void3"),0,0,640,576,0,0,canvas.width,canvas.height);
+            break
+        case 9:
+            ctx.drawImage(mapAssets.img("void4"),0,0,640,576,0,0,canvas.width,canvas.height);
+            break
+        case 10:
+            ctx.drawImage(mapAssets.img("void3"),0,0,640,576,0,0,canvas.width,canvas.height);
+            ctx.fillStyle = "black";
+            break;
+        case 11:
+            ctx.fillStyle = "darkred";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(mapAssets.img("void1"),0,0,640,576,0,0,canvas.width,canvas.height);
+            ctx.fillStyle = "black";
+            break;
+        case 12:
+            ctx.fillStyle = "darkred";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(mapAssets.img("void2"),0,0,640,576,0,0,canvas.width,canvas.height);
+            ctx.fillStyle = "black";
+            break;
+        case 13:
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);    
+            ctx.drawImage(mapAssets.img("void1"),0,0,640,576,0,0,canvas.width,canvas.height);
+            ctx.fillStyle = "black";
+            break;
+        case 14:
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);    
+            ctx.drawImage(mapAssets.img("void2"),0,0,640,576,0,0,canvas.width,canvas.height);
+            ctx.fillStyle = "black";
+            break;
         default:
             break;
             
