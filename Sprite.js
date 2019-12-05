@@ -57,7 +57,24 @@ Sprite.prototype.desenhar = function (ctx) {
         this.w,
         this.h
         );
+        ctx.fillStyle = 'red';
+        ctx.fillRect(-this.vida/4, 16, this.vida/2, 2);
+        ctx.fillStyle = 'black';
     }
+    else if (this.props.tipo === "tiro"){
+        var T = this.frame * 26
+        ctx.drawImage(this.scene.assets.img("bash"),
+        Math.floor(T/5) * 64,
+        0,
+        64,
+        64,
+        -this.w/2,
+        -this.h/2,
+        this.w,
+        this.h
+        );
+    }
+
 
     //toyroom
     else if(this.props.tipo === "seeker" ){
@@ -85,6 +102,9 @@ Sprite.prototype.desenhar = function (ctx) {
                 this.h
             );
         }
+        ctx.fillStyle = 'lightblue';
+        ctx.fillRect(-this.vida/2, 16, this.vida, 2);
+        ctx.fillStyle = 'black';
     }
     else if(this.props.tipo === "pulo"){
         ctx.drawImage(mapAssets.img("toytiles"),
@@ -111,6 +131,9 @@ Sprite.prototype.desenhar = function (ctx) {
         this.w*2,
         this.h*2
        );
+       ctx.fillStyle = 'red';
+       ctx.fillRect(-this.vida/4, 48, this.vida/2, 2);
+       ctx.fillStyle = 'black';
     }
     else if(this.props.tipo === "charger" ){
         ctx.drawImage(this.scene.assets.img("rider2"),
@@ -123,6 +146,9 @@ Sprite.prototype.desenhar = function (ctx) {
         this.w*2,
         this.h*2
        );
+       ctx.fillStyle = 'darkred';
+       ctx.fillRect(-this.vida/2, 48, 10*this.vida, 2);
+       ctx.fillStyle = 'black';
     }
     else if(this.props.tipo === "rider" ){
         ctx.drawImage(this.scene.assets.img("rider3"),
@@ -135,10 +161,14 @@ Sprite.prototype.desenhar = function (ctx) {
         this.w*2,
         this.h*2
        );
+       ctx.fillStyle = 'red';
+       ctx.fillRect(-this.vida/2, 48, 5*this.vida, 2);
+       ctx.fillStyle = 'black';
     }
 
     //void
     else if(this.props.tipo === "eldritch1" ){
+        ctx.fillRect(0, 0, 32, 32);
         if(this.comportamentoativo <= 0.5){
               ctx.drawImage(this.scene.assets.img("eldritch1"),
               0,
@@ -163,6 +193,9 @@ Sprite.prototype.desenhar = function (ctx) {
               this.h
              );
          }
+         ctx.fillStyle = 'darkred';
+         ctx.fillRect(-this.vida/2, 16, this.vida, 2);
+         ctx.fillStyle = 'black';
     }
     else if(this.props.tipo === "eldritch2" ){
         if(this.comportamentoativo <= 0.5){
@@ -189,6 +222,9 @@ Sprite.prototype.desenhar = function (ctx) {
               this.h
              );
          }
+         ctx.fillStyle = 'darkred';
+         ctx.fillRect(-this.vida/2, 16, this.vida, 2);
+         ctx.fillStyle = 'black';
     }
     else if(this.props.tipo === "eldritch3" ){
         if(this.comportamentoativo <= 0.5){
@@ -215,6 +251,9 @@ Sprite.prototype.desenhar = function (ctx) {
               this.h
              );
          }
+        ctx.fillStyle = 'white';
+        ctx.fillRect(-this.vida/2, 64, 10*this.vida, 16);
+        ctx.fillStyle = 'black';
     }    
     else if(this.props.tipo === "hatyoukai" ){
         ctx.drawImage(this.scene.assets.img("hatyoukai"),
@@ -227,9 +266,9 @@ Sprite.prototype.desenhar = function (ctx) {
             this.w,
             this.h
         );
-    }
-    else if (this.props.tipo === "tiro"){
-        ctx.fillRect(0,0,this.w,this.h);
+        ctx.fillStyle = 'black';
+        ctx.fillRect(-this.vida/2, 48, this.vida, 2);
+        ctx.fillStyle = 'black';
     }
     ctx.restore();
 }
@@ -241,11 +280,19 @@ Sprite.prototype.mover = function (dt) {
     if (Math.floor(this.frame) >= 20) {
         this.frame = 0;
     }
+    if(this.props.tipo === "tiro"){
+        if (Math.floor(this.frame) >= 1){
+            this.morto = true;
+        }
+    }
     if(this.props.tipo != 'pc' && this.props.tipo != 'hatyoukai'){
         this.moverNpc(dt);
     }
     else if(this.props.tipo === 'pc'){
         this.moverOrtogonal(dt);
+    }
+    else if(this.props.tipo === 'tiro'){
+        this.moverBoss(dt);
     }
     else if(this.props.tipo === 'hatyoukai' && this.dialogo >= 1){
         this.moverBoss(dt);

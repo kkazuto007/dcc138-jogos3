@@ -7,7 +7,7 @@ function Scene(params) {
         h: 300,
         assets: null,
         map: null,
-        mapindice: 8,
+        mapindice: 11,
         teleportes: 0,
         set: 0,
         chefe: 0,
@@ -56,7 +56,9 @@ Scene.prototype.checaColisao = function(){
         if(this.sprites[i].morto){
             this.toRemove.push(this.sprites[i]);
             if(this.sprites[i].props.tipo === "rider" || this.sprites[i].props.tipo === "eldritch3"){
-
+                this.map[this.mapindice].cells[23][13] = 0;
+                this.map[this.mapindice].cells[23][14] = 0;
+                this.map[this.mapindice].cells[23][15] = 0;
             }
         }
         for(var j = i+1; j<this.sprites.length; j++){
@@ -65,7 +67,6 @@ Scene.prototype.checaColisao = function(){
                 && this.sprites[j].props.tipo ==="pulo"){
                     this.sprites[i].pulo = 1;
                 }
-                else 
                 if(this.sprites[i].props.tipo === "seeker"
                 && this.sprites[j].props.tipo ==="tiro"){
                     this.toRemove.push(this.sprites[j]);
@@ -96,41 +97,39 @@ Scene.prototype.checaColisao = function(){
                     this.sprites[i].vida--;
                 }
                 else 
-                if(this.sprites[i].props.tipo === "hatyoukai"
-                && this.sprites[j].props.tipo ==="tiro"){
-                    this.toRemove.push(this.sprites[j]);
-                    this.sprites[i].vida--;
-                }
-
-                else 
-                if(this.sprites[i].props.tipo === "seeker"
-                && this.sprites[j].props.tipo ==="pc"){
-                    this.sprites[j].vida--;
-                }
-                else 
-                if(this.sprites[i].props.tipo === "charger"
-                && this.sprites[j].props.tipo ==="pc"){
-                    this.sprites[j].vida--;
-                }
-                else 
-                if(this.sprites[i].props.tipo === "rider"
+                if(this.sprites[i].props.tipo === "eldritch3"
                 && this.sprites[j].props.tipo ==="tiro"){
                     this.toRemove.push(this.sprites[j]);
                     this.sprites[i].vida--;
                 }
                 else 
-                if(this.sprites[i].props.tipo === "eldritch"
-                && this.sprites[j].props.tipo ==="pc"){
-                    this.sprites[j].vida--;
-                }
-                else 
-                if(this.sprites[i].props.tipo === "eldritch2"
-                && this.sprites[j].props.tipo ==="pc"){
-                    this.sprites[j].vida--;
-                }
-                else 
                 if(this.sprites[i].props.tipo === "hatyoukai"
-                && this.sprites[j].props.tipo ==="pc"){
+                && this.sprites[j].props.tipo ==="tiro"){
+                    this.toRemove.push(this.sprites[j]);
+                    this.sprites[i].vida--;
+                }
+                if(this.sprites[i].props.tipo === "pc"
+                && this.sprites[j].props.tipo ==="seeker"){
+                    this.sprites[j].vida--;
+                }
+                else 
+                if(this.sprites[i].props.tipo === "pc"
+                && this.sprites[j].props.tipo ==="charger"){
+                    this.sprites[j].vida--;
+                }
+                else 
+                if(this.sprites[i].props.tipo === "pc"
+                && this.sprites[j].props.tipo ==="eldritch1"){
+                    this.sprites[j].vida--;
+                }
+                else 
+                if(this.sprites[i].props.tipo === "pc"
+                && this.sprites[j].props.tipo ==="eldritch2"){
+                    this.sprites[j].vida--;
+                }
+                else 
+                if(this.sprites[i].props.tipo === "pc"
+                && this.sprites[j].props.tipo ==="hatyoukai"){
                     this.sprites[j].vida--;
                 }
                 
@@ -265,7 +264,7 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("bridge"),0,0,600,480,0,0,canvas.width,canvas.height);
             pc.props.tipo = "bearrider";
             if(this.set <=0.5){
-                var general = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "rider" }, vida: 15, comportar: charge(pc)});
+                var general = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "rider" }, vida: 20, comportar: charge(pc)});
                 cena2.adicionar(general);
                 this.set = 1;
             }
