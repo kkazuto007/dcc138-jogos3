@@ -216,6 +216,8 @@ Scene.prototype.scenario = function(){
         case 8:
             ctx.drawImage(mapAssets.img("void3"),0,0,640,576,0,0,canvas.width,canvas.height);
             if(this.set <= 0.5){
+                pc.props.tipo = "pc";
+                pc.props.riding = 0;
                 var npc = new Sprite({ x: 480, y: 360, w:64, h: 64, props: { tipo: "eldritch1" }, comportar: flutuante(pc)});
                 cena2.adicionar(npc);
                 this.set = 1;
@@ -266,6 +268,12 @@ Scene.prototype.scenario = function(){
             }
             break;
         case 14:
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);    
+            ctx.drawImage(mapAssets.img("void1"),0,0,640,576,0,0,canvas.width,canvas.height);
+            ctx.fillStyle = "black";
+            break;
+        case 15:
             ctx.fillStyle = "azure";
             ctx.fillRect(0, 0, canvas.width, canvas.height);    
             ctx.drawImage(mapAssets.img("void2"),0,0,640,576,0,0,canvas.width,canvas.height);

@@ -28,12 +28,30 @@ Map.prototype.desenhar = function (ctx) {
     for (var c = 0; c < this.COLUMNS; c++) {
         for (var l = 0; l < this.LINES; l++) {
             switch (this.cells[c][l].tipo) {
+
+                //andavel
                 case 0:
                     break;
+
+                //solido
+                case 1:
+                    break;
+                
+                //toy
                 case 2:
                     ctx.drawImage(mapAssets.img("toytiles"),0,0,64,64, c* this.SIZE, l * this.SIZE,this.SIZE,this.SIZE);
                     break;
+
                 //case 3: sustentação
+
+                //void
+                case 4:
+                    ctx.drawImage(mapAssets.img("voidtile"),0,0,16,16, c* this.SIZE, l * this.SIZE,this.SIZE,this.SIZE);
+                    break;
+                case 5:
+                    ctx.drawImage(mapAssets.img("voidtile2"),0,0,16,16, c* this.SIZE, l * this.SIZE,this.SIZE,this.SIZE);
+                    break;
+
                 case 1000:
                     cor = "darkred";
                     ctx.fillStyle = cor;
@@ -41,10 +59,10 @@ Map.prototype.desenhar = function (ctx) {
                     break;
 
                 //desenha blocks: (ate ter cenário pronto)
-                default:
+                /*default:
                     cor = "black";
                     ctx.strokeRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
-                    break;
+                    break;*/
             }
         }
     }
