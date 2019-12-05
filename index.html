@@ -679,22 +679,24 @@
                             lado: 0,
                             x: this.x - 48,
                             y: this.y,
-                            w: 16,
-                            h: 16,
+                            w: 24,
+                            h: 24,
                              props: { tipo: "tiro"},
                             });
                             this.scene.adicionar(tiro);
+                            this.cooldown =0.75;
                         }
                         else{
                             var tiro = new Sprite({
                             lado: 1,
                             x: this.x + 32,
                             y: this.y,
-                            w: 16,
-                            h: 16,
+                            w: 24,
+                            h: 24,
                              props: { tipo: "tiro"},
                             });
-                            this.scene.adicionar(tiro);                        
+                            this.scene.adicionar(tiro);  
+                            this.cooldown = 0.75;                      
                         }
                     }
                 }

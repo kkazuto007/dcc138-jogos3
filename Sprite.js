@@ -35,7 +35,7 @@ Sprite.prototype = new Sprite();
 Sprite.prototype.constructor = Sprite;
 
 Sprite.prototype.desenhar = function (ctx) {
-    ctx.save();
+    ctx.save(); 
     ctx.translate(this.x, this.y);
 
     if (this.vx >= 0) {
@@ -44,7 +44,6 @@ Sprite.prototype.desenhar = function (ctx) {
     else {
         var F = Math.floor(this.frame * (-1) * this.vx/30);
     }
-
     //pc
     if(this.props.tipo === "pc"){
         ctx.drawImage(this.scene.assets.img("bear"),
