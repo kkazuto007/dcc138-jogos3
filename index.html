@@ -672,6 +672,32 @@
                     if ( this.pulo >= 0.5) { this.pulo = 0, this.vy = -800;  }
                     if (teclas.cima === teclas.baixo) { this.ay = 0; }
                 }
+                if (this.props.riding == 0){
+                    if (teclas.espaco && this.cooldown <= 0) {
+                        if(this.lado <= 0.5){
+                            var tiro = new Sprite({
+                            lado: 0,
+                            x: this.x - 48,
+                            y: this.y,
+                            w: 16,
+                            h: 16,
+                             props: { tipo: "tiro"},
+                            });
+                            this.scene.adicionar(tiro);
+                        }
+                        else{
+                            var tiro = new Sprite({
+                            lado: 1,
+                            x: this.x + 32,
+                            y: this.y,
+                            w: 16,
+                            h: 16,
+                             props: { tipo: "tiro"},
+                            });
+                            this.scene.adicionar(tiro);                        
+                        }
+                    }
+                }
                 if (this.props.riding == 1){
                     if (teclas.espaco && this.cooldown <= 0) {
                         if(this.lado <= 0.5){

@@ -11,7 +11,7 @@ function Sprite(params = {}) {
         a: 0,
         va: 0,
         vm: 0,
-        vida: 1,
+        vida: 100,
         pulo: 0,
         morto: 0,
         comportamentoativo: 0,
@@ -202,7 +202,8 @@ Sprite.prototype.desenhar = function (ctx) {
             this.h
         );
     }
-    else{
+    else if (this.props.tipo === "tiro"){
+        ctx.fillRect(0,0,this.w,this.h);
     }
     ctx.restore();
 }
