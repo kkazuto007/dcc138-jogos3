@@ -56,9 +56,16 @@ Scene.prototype.checaColisao = function(){
         if(this.sprites[i].morto){
             this.toRemove.push(this.sprites[i]);
             if(this.sprites[i].props.tipo === "rider" || this.sprites[i].props.tipo === "eldritch3"){
-                this.map[this.mapindice].cells[23][13] = 0;
+                this.map[this.mapindice].cells[1][14] = 0;
+                this.map[this.mapindice].cells[2][14] = 0;
+                this.map[this.mapindice].cells[1][15] = 0;
+                this.map[this.mapindice].cells[2][15] = 0;
+
+                this.map[this.mapindice].cells[22][14] = 0;
                 this.map[this.mapindice].cells[23][14] = 0;
+                this.map[this.mapindice].cells[22][15] = 0;
                 this.map[this.mapindice].cells[23][15] = 0;
+
             }
         }
         for(var j = i+1; j<this.sprites.length; j++){
@@ -319,6 +326,7 @@ Scene.prototype.scenario = function(){
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(mapAssets.img("void1"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
+            ctx.fillRect(704, 448, 64, 64);
             if(this.set <= 0.5){
                 var npc = new Sprite({ x: 480, y: 480, w:128, h: 128, props: { tipo: "eldritch3" }, vida: 10, comportar: boss(pc)});
                 cena2.adicionar(npc);
