@@ -7,9 +7,10 @@ function Scene(params) {
         h: 300,
         assets: null,
         map: null,
-        mapindice: 0,
+        mapindice: 8,
         teleportes: 0,
         set: 0,
+        chefe: 0,
     }
     Object.assign(this, exemplo, params);
 }
@@ -54,6 +55,9 @@ Scene.prototype.checaColisao = function(){
         }
         if(this.sprites[i].morto){
             this.toRemove.push(this.sprites[i]);
+            if(this.sprites[i].props.tipo === "rider" || this.sprites[i].props.tipo === "eldritch3"){
+
+            }
         }
         for(var j = i+1; j<this.sprites.length; j++){
             if(this.sprites[i].colidiuCom(this.sprites[j])){
@@ -238,6 +242,8 @@ Scene.prototype.scenario = function(){
             if(this.set <=0.5){
                 pc.props.tipo = "pc";
                 pc.props.riding = 0;
+                pc.modelo = 1;
+                pc.shadow = 0;
                 this.set = 1;
             }
             break;
@@ -261,16 +267,16 @@ Scene.prototype.scenario = function(){
             if(this.set <=0.5){
                 var general = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "rider" }, vida: 15, comportar: charge(pc)});
                 cena2.adicionar(general);
-                pc.props.tipo = "bearrider";
                 this.set = 1;
             }
             break;
         case 7:
             ctx.drawImage(mapAssets.img("bridge"),300,0,300,480,0,0,canvas.width,canvas.height);
             if(this.set <=0.5){
+                pc.props.tipo = "bearrider";
+                pc.props.riding = 1;
                 var npc2 = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "charger" }, vida: 5, comportar: charge(pc)});
                 cena2.adicionar(npc2);
-                pc.props.tipo = "bearrider";
                 this.set = 1;
             }
             break;
@@ -280,16 +286,28 @@ Scene.prototype.scenario = function(){
             if(this.set <= 0.5){
                 pc.props.tipo = "pc";
                 pc.props.riding = 0;
-                var npc = new Sprite({ x: 480, y: 360, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 8, comportar: eldritch(pc)});
+                pc.modelo = 1;
+                pc.shadow = 1;
+                var npc = new Sprite({ x: 120, y: 192, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 8, comportar: eldritch(pc)});
                 cena2.adicionar(npc);
+                var npc2 = new Sprite({ x: 460, y: 120, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 8, comportar: eldritch(pc)});
+                cena2.adicionar(npc2);
+                var npc3 = new Sprite({ x: 360, y: 430, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 8, comportar: eldritch(pc)});
+                cena2.adicionar(npc3);
                 this.set = 1;
             }
             break
         case 9:
             ctx.drawImage(mapAssets.img("void4"),0,0,640,576,0,0,canvas.width,canvas.height);
             if(this.set <= 0.5){
-                var npc = new Sprite({ x: 360, y: 480, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 8, comportar: eldritch(pc)});
+                var npc = new Sprite({ x: 360, y: 480, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 3, comportar: eldritch(pc)});
                 cena2.adicionar(npc);
+                var npc2 = new Sprite({ x: 300, y: 480, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 3, comportar: eldritch(pc)});
+                cena2.adicionar(npc2);
+                var npc3 = new Sprite({ x: 240, y: 480, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 3, comportar: eldritch(pc)});
+                cena2.adicionar(npc3);
+                var npc4 = new Sprite({ x: 340, y: 340, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 3, comportar: eldritch(pc)});
+                cena2.adicionar(npc4);
                 this.set = 1;
             }
             break
@@ -302,6 +320,11 @@ Scene.prototype.scenario = function(){
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(mapAssets.img("void1"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
+            if(this.set <= 0.5){
+                var npc = new Sprite({ x: 480, y: 480, w:128, h: 128, props: { tipo: "eldritch3" }, vida: 10, comportar: boss(pc)});
+                cena2.adicionar(npc);
+                this.set = 1;
+            }
             break;
         case 12:
             ctx.fillStyle = "gray";
@@ -309,8 +332,8 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("void2"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
             if(this.set <= 0.5){
-                var npc = new Sprite({ x: 480, y: 480, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 8, comportar: eldritch(pc)});
-                var npc2 = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, vida: 8, comportar: eldritch(pc)});
+                var npc = new Sprite({ x: 480, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, vida: 4, comportar: eldritch(pc)});
+                var npc2 = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, vida: 4, comportar: eldritch(pc)});
                 cena2.adicionar(npc);
                 cena2.adicionar(npc2);
                 this.set = 1;
@@ -322,8 +345,8 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("void1"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
             if(this.set <= 0.5){
-                var npc = new Sprite({ x: 9*32, y: 96, w:64, h: 64, props: { tipo: "eldritch2" }, vida: 8, comportar: eldritch(pc)});
-                var npc2 = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, vida: 8, comportar: eldritch(pc)});
+                var npc = new Sprite({ x: 9*32, y: 96, w:64, h: 64, props: { tipo: "eldritch2" }, vida: 4, comportar: eldritch(pc)});
+                var npc2 = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, vida: 4, comportar: eldritch(pc)});
                 cena2.adicionar(npc);
                 cena2.adicionar(npc2);
                 this.set = 1;
@@ -334,6 +357,8 @@ Scene.prototype.scenario = function(){
             ctx.fillRect(0, 0, canvas.width, canvas.height);    
             ctx.drawImage(mapAssets.img("void1"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
+            pc.modelo = 0;
+            pc.shadow = 1;
             break;
         case 15:
             ctx.fillStyle = "azure";

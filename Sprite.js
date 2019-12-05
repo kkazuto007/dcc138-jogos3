@@ -19,6 +19,7 @@ function Sprite(params = {}) {
         lado: 1,
         frame: 0,
         modelo: 1,
+        shadow: 0,
         spawn: {},
         props: {},
         cooldown: 0,
@@ -48,7 +49,7 @@ Sprite.prototype.desenhar = function (ctx) {
     if(this.props.tipo === "pc"){
         ctx.drawImage(this.scene.assets.img("bear"),
         F%2 * 16 + (this.modelo * 32),
-        Math.floor(this.lado) * 16,
+        Math.floor(this.lado) * 16 + (this.shadow * 32),
         16,
         16,
         -this.w/2,
@@ -189,6 +190,32 @@ Sprite.prototype.desenhar = function (ctx) {
              );
          }
     }
+    else if(this.props.tipo === "eldritch3" ){
+        if(this.comportamentoativo <= 0.5){
+              ctx.drawImage(this.scene.assets.img("eldritch1"),
+              0,
+              0,
+              32,
+              32,
+              -this.w/2,
+              -this.h/2,
+              this.w,
+              this.h
+             );
+         }
+         else if(this.comportamentoativo >= 0.5){
+              ctx.drawImage(this.scene.assets.img("eldritch1"),
+              32,
+              0,
+              32,
+              32,
+              -this.w/2,
+              -this.h/2,
+              this.w,
+              this.h
+             );
+         }
+    }    
     else if(this.props.tipo === "hatyoukai" ){
         ctx.drawImage(this.scene.assets.img("hatyoukai"),
             F%3 * 32,
