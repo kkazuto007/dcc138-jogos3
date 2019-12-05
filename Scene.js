@@ -145,6 +145,13 @@ Scene.prototype.scenario = function(){
             break;
         case 1:
             ctx.drawImage(mapAssets.img("toyroom3"),0,0,800,640,0,0,canvas.width,canvas.height);
+            if(this.set <= 0.5){
+                var npc = new Sprite({ x: 192, y: 480, w:32, h: 32, props: { tipo: "seeker" }, comportar: flutuante(pc)});
+                cena2.adicionar(npc);
+                var npc2 = new Sprite({ x: 576, y: 480, w:32, h: 32, props: { tipo: "seeker" }, comportar: flutuante(pc)});
+                cena2.adicionar(npc2);
+                this.set = 1;
+            }
             break
         case 2:
             ctx.drawImage(mapAssets.img("toyroom1"),0,0,800,640,0,0,canvas.width,canvas.height); 
@@ -218,7 +225,7 @@ Scene.prototype.scenario = function(){
             if(this.set <= 0.5){
                 pc.props.tipo = "pc";
                 pc.props.riding = 0;
-                var npc = new Sprite({ x: 480, y: 360, w:64, h: 64, props: { tipo: "eldritch1" }, comportar: flutuante(pc)});
+                var npc = new Sprite({ x: 480, y: 360, w:32, h: 32, props: { tipo: "eldritch1" }, comportar: eldritch(pc)});
                 cena2.adicionar(npc);
                 this.set = 1;
             }
@@ -226,7 +233,7 @@ Scene.prototype.scenario = function(){
         case 9:
             ctx.drawImage(mapAssets.img("void4"),0,0,640,576,0,0,canvas.width,canvas.height);
             if(this.set <= 0.5){
-                var npc = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch1" }, comportar: flutuante(pc)});
+                var npc = new Sprite({ x: 360, y: 480, w:32, h: 32, props: { tipo: "eldritch1" }, comportar: eldritch(pc)});
                 cena2.adicionar(npc);
                 this.set = 1;
             }
@@ -247,8 +254,8 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("void2"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
             if(this.set <= 0.5){
-                var npc = new Sprite({ x: 480, y: 480, w:64, h: 64, props: { tipo: "eldritch1" }, comportar: flutuante(pc)});
-                var npc2 = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, comportar: flutuante(pc)});
+                var npc = new Sprite({ x: 480, y: 480, w:32, h: 32, props: { tipo: "eldritch1" }, comportar: eldritch(pc)});
+                var npc2 = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, comportar: eldritch(pc)});
                 cena2.adicionar(npc);
                 cena2.adicionar(npc2);
                 this.set = 1;
@@ -260,8 +267,8 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("void1"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
             if(this.set <= 0.5){
-                var npc = new Sprite({ x: 480, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, comportar: flutuante(pc)});
-                var npc2 = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, comportar: flutuante(pc)});
+                var npc = new Sprite({ x: 9*32, y: 96, w:64, h: 64, props: { tipo: "eldritch2" }, comportar: eldritch(pc)});
+                var npc2 = new Sprite({ x: 360, y: 480, w:64, h: 64, props: { tipo: "eldritch2" }, comportar: eldritch(pc)});
                 cena2.adicionar(npc);
                 cena2.adicionar(npc2);
                 this.set = 1;
@@ -280,7 +287,7 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("cocoon"),0,0,160,144,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
             if(this.set <= 0.5){
-                var hatyoukai = new Sprite({ x: 480, y: 360, w:64, h: 64, props: { tipo: "hatyoukai" }, comportar: flutuante(pc)});
+                var hatyoukai = new Sprite({ x: 400, y: 360, w:64, h: 64, cooldown: 10, props: { tipo: "hatyoukai" }, comportar: dialogo(pc)});
                 cena2.adicionar(hatyoukai);
                 this.set = 1;
             }

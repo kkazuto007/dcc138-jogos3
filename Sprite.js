@@ -25,8 +25,8 @@ function Sprite(params = {}) {
         color: "blue",
         imune: 0,
         atirando: 0,
+        dialogo: 0,
         comportar: undefined,
-        dialogo: undefined,
         scene: undefined
     }
     Object.assign(this, exemplo, params);
@@ -214,11 +214,14 @@ Sprite.prototype.mover = function (dt) {
     if (Math.floor(this.frame) >= 20) {
         this.frame = 0;
     }
-    if(this.props.tipo != 'pc'){
+    if(this.props.tipo != 'pc' && this.props.tipo != 'hatyoukai'){
         this.moverNpc(dt);
     }
-    else{
+    else if(this.props.tipo === 'pc'){
         this.moverOrtogonal(dt);
+    }
+    else if(this.props.tipo === 'hatyoukai' && this.dialogo >= 1){
+        this.moverBoss(dt);
     }
 }
 
@@ -250,6 +253,18 @@ Sprite.prototype.moverNpc = function (dt) {
     this.cooldown = this.cooldown - dt;
 }
 
+Sprite.prototype.moverBoss = function (dt) {
+    this.a = this.a + this.va*dt;
+
+    this.vx = this.vx + this.ax * dt - this.vx * 0.9 * dt;
+    this.vy = this.vy + this.ay * dt ;
+
+
+    this.mc = Math.floor(this.x / this.scene.map[this.scene.mapindice].SIZE);
+    this.ml = Math.floor(this.y / this.scene.map[this.scene.mapindice].SIZE);
+
+    this.aplicaRestricoes(dt);
+}
 
 Sprite.prototype.aplicaRestricoes = function (dt) {
 
