@@ -54,19 +54,10 @@ Scene.prototype.checaColisao = function(){
             this.sprites[i].morto = 1;
         }
         if(this.sprites[i].morto){
-            this.toRemove.push(this.sprites[i]);
             if(this.sprites[i].props.tipo === "rider" || this.sprites[i].props.tipo === "eldritch3"){
-                this.map[this.mapindice].cells[1][14] = 0;
-                this.map[this.mapindice].cells[2][14] = 0;
-                this.map[this.mapindice].cells[1][15] = 0;
-                this.map[this.mapindice].cells[2][15] = 0;
-
-                this.map[this.mapindice].cells[22][14] = 0;
-                this.map[this.mapindice].cells[23][14] = 0;
-                this.map[this.mapindice].cells[22][15] = 0;
-                this.map[this.mapindice].cells[23][15] = 0;
-
+                boss1defeated = 1;
             }
+            this.toRemove.push(this.sprites[i]);
         }
         for(var j = i+1; j<this.sprites.length; j++){
             if(this.sprites[i].colidiuCom(this.sprites[j])){
@@ -117,27 +108,32 @@ Scene.prototype.checaColisao = function(){
                 }
                 if(this.sprites[i].props.tipo === "pc"
                 && this.sprites[j].props.tipo ==="seeker"){
-                    this.sprites[j].vida--;
+                    this.sprites[i].vida--;
                 }
                 else 
                 if(this.sprites[i].props.tipo === "pc"
                 && this.sprites[j].props.tipo ==="charger"){
-                    this.sprites[j].vida--;
+                    this.sprites[i].vida--;
                 }
                 else 
                 if(this.sprites[i].props.tipo === "pc"
                 && this.sprites[j].props.tipo ==="eldritch1"){
-                    this.sprites[j].vida--;
+                    this.sprites[i].vida--;
                 }
                 else 
                 if(this.sprites[i].props.tipo === "pc"
                 && this.sprites[j].props.tipo ==="eldritch2"){
-                    this.sprites[j].vida--;
+                    this.sprites[i].vida--;
+                }
+                else 
+                if(this.sprites[i].props.tipo === "pc"
+                && this.sprites[j].props.tipo ==="eldritch3"){
+                    this.sprites[i].vida--;
                 }
                 else 
                 if(this.sprites[i].props.tipo === "pc"
                 && this.sprites[j].props.tipo ==="hatyoukai"){
-                    this.sprites[j].vida--;
+                    this.sprites[i].vida--;
                 }
                 
                 else
@@ -271,6 +267,15 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("bridge"),0,0,600,480,0,0,canvas.width,canvas.height);
             pc.props.tipo = "bearrider";
             if(this.set <=0.5){
+                this.map[this.mapindice].cells[1][14] = 1;
+                this.map[this.mapindice].cells[2][14] = 1;
+                this.map[this.mapindice].cells[1][15] = 1;
+                this.map[this.mapindice].cells[2][15] = 1;
+
+                this.map[this.mapindice].cells[22][14] = 1;
+                this.map[this.mapindice].cells[23][14] = 1;
+                this.map[this.mapindice].cells[22][15] = 1;
+                this.map[this.mapindice].cells[23][15] = 1;
                 var general = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "rider" }, vida: 20, comportar: charge(pc)});
                 cena2.adicionar(general);
                 this.set = 1;
@@ -327,10 +332,21 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("void1"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
             ctx.fillRect(704, 448, 64, 64);
+            ctx.fillRect(32, 448, 64, 64);
             if(this.set <= 0.5){
-                var npc = new Sprite({ x: 480, y: 480, w:128, h: 128, props: { tipo: "eldritch3" }, vida: 10, comportar: boss(pc)});
+                var npc = new Sprite({ x: 480, y: 480, w:128, h: 128, props: { tipo: "eldritch3" }, vida: 12, comportar: boss(pc)});
                 cena2.adicionar(npc);
                 this.set = 1;
+            }
+            if(boss1defeated){  
+              this.map[this.mapindice].cells[1][14].tipo = 0;
+              this.map[this.mapindice].cells[2][14].tipo = 0;
+              this.map[this.mapindice].cells[1][15].tipo = 0;
+              this.map[this.mapindice].cells[2][15].tipo = 0;
+              this.map[this.mapindice].cells[22][14].tipo = 0;
+              this.map[this.mapindice].cells[23][14].tipo = 0;
+              this.map[this.mapindice].cells[22][15].tipo = 0;
+              this.map[this.mapindice].cells[23][15].tipo = 0;
             }
             break;
         case 12:

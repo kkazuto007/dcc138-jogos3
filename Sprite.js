@@ -62,12 +62,11 @@ Sprite.prototype.desenhar = function (ctx) {
         ctx.fillStyle = 'black';
     }
     else if (this.props.tipo === "tiro"){
-        var T = this.frame * 26
-        ctx.drawImage(this.scene.assets.img("bash"),
-        Math.floor(T/5) * 64,
+        ctx.drawImage(this.scene.assets.img("pill"),
         0,
-        64,
-        64,
+        0,
+        16,
+        16,
         -this.w/2,
         -this.h/2,
         this.w,
@@ -281,7 +280,7 @@ Sprite.prototype.mover = function (dt) {
         this.frame = 0;
     }
     if(this.props.tipo === "tiro"){
-        if (Math.floor(this.frame) >= 1){
+        if (Math.floor(this.frame) >= 5){
             this.morto = true;
         }
     }
@@ -291,7 +290,7 @@ Sprite.prototype.mover = function (dt) {
     else if(this.props.tipo === 'pc'){
         this.moverOrtogonal(dt);
     }
-    else if(this.props.tipo === 'tiro'){
+    else if(this.props.tipo === 'tiro'){       
         this.moverBoss(dt);
     }
     else if(this.props.tipo === 'hatyoukai' && this.dialogo >= 1){
