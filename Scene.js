@@ -7,7 +7,7 @@ function Scene(params) {
         h: 300,
         assets: null,
         map: null,
-        mapindice: 4,
+        mapindice: 0,
         teleportes: 0,
         set: 0,
         chefe: 0,
