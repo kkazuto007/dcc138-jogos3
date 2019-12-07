@@ -52,6 +52,12 @@ Map.prototype.desenhar = function (ctx) {
                     ctx.drawImage(mapAssets.img("voidtile2"),0,0,16,16, c* this.SIZE, l * this.SIZE,this.SIZE,this.SIZE);
                     break;
 
+                //montaria    
+                case 6:
+                    ctx.drawImage(mapAssets.img("mount"),32,32,32,32, c* this.SIZE, l * this.SIZE,this.SIZE,this.SIZE);
+                    break;
+
+                //teste    
                 case 1000:
                     cor = "darkred";
                     ctx.fillStyle = cor;

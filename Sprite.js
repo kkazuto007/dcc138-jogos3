@@ -11,7 +11,7 @@ function Sprite(params = {}) {
         a: 0,
         va: 0,
         vm: 0,
-        vida: 100,
+        vida: 500,
         pulo: 0,
         morto: 0,
         comportamentoativo: 0,
@@ -25,7 +25,7 @@ function Sprite(params = {}) {
         cooldown: 0,
         color: "blue",
         imune: 0,
-        atirando: 0,
+        charging: 0,
         dialogo: 0,
         comportar: undefined,
         scene: undefined
@@ -58,8 +58,10 @@ Sprite.prototype.desenhar = function (ctx) {
         this.h
         );
         ctx.fillStyle = 'red';
-        ctx.fillRect(-this.vida/4, 16, this.vida/2, 2);
+        ctx.fillRect(-this.vida/8, 16, this.vida/4, 2);
         ctx.fillStyle = 'black';
+        ctx.font = "16px bold Aldrich";
+        ctx.fillText(this.vida, -this.vida/8, 16, this.vida/4, 2);
     }
     else if (this.props.tipo === "tiro"){
         ctx.drawImage(this.scene.assets.img("pill"),
@@ -131,8 +133,10 @@ Sprite.prototype.desenhar = function (ctx) {
         this.h*2
        );
        ctx.fillStyle = 'red';
-       ctx.fillRect(-this.vida/4, 48, this.vida/2, 2);
+       ctx.fillRect(-this.vida/16, 48, this.vida/8, 2);
        ctx.fillStyle = 'black';
+       ctx.font = "16px bold Aldrich";
+       ctx.fillText(this.vida, -this.vida/16, 48, this.vida/4, 4);
     }
     else if(this.props.tipo === "charger" ){
         ctx.drawImage(this.scene.assets.img("rider2"),
@@ -146,7 +150,7 @@ Sprite.prototype.desenhar = function (ctx) {
         this.h*2
        );
        ctx.fillStyle = 'darkred';
-       ctx.fillRect(-this.vida/2, 48, 10*this.vida, 2);
+       ctx.fillRect(-this.vida/2, 48, this.vida, 4);
        ctx.fillStyle = 'black';
     }
     else if(this.props.tipo === "rider" ){
@@ -161,13 +165,14 @@ Sprite.prototype.desenhar = function (ctx) {
         this.h*2
        );
        ctx.fillStyle = 'red';
-       ctx.fillRect(-this.vida/2, 48, 5*this.vida, 2);
+       ctx.fillRect(-this.vida/12, 48, this.vida/6, 2);
        ctx.fillStyle = 'black';
+       ctx.font = "16px bold Aldrich";
+       ctx.fillText(this.vida, -this.vida/12, 48, this.vida/6, 4);
     }
 
     //void
     else if(this.props.tipo === "eldritch1" ){
-        ctx.fillRect(0, 0, 32, 32);
         if(this.comportamentoativo <= 0.5){
               ctx.drawImage(this.scene.assets.img("eldritch1"),
               0,
@@ -192,9 +197,6 @@ Sprite.prototype.desenhar = function (ctx) {
               this.h
              );
          }
-         ctx.fillStyle = 'darkred';
-         ctx.fillRect(-this.vida/2, 16, this.vida, 2);
-         ctx.fillStyle = 'black';
     }
     else if(this.props.tipo === "eldritch2" ){
         if(this.comportamentoativo <= 0.5){
@@ -251,8 +253,10 @@ Sprite.prototype.desenhar = function (ctx) {
              );
          }
         ctx.fillStyle = 'white';
-        ctx.fillRect(-this.vida/2, 64, 10*this.vida, 16);
+        ctx.fillRect(-this.vida/4, 64, 10*this.vida/2, 16);
         ctx.fillStyle = 'black';
+        ctx.font = "16px bold Aldrich";
+        ctx.fillText(this.vida, -this.vida/4,76, 10*this.vida/2, 16);
     }    
     else if(this.props.tipo === "hatyoukai" ){
         ctx.drawImage(this.scene.assets.img("hatyoukai"),
@@ -280,6 +284,9 @@ Sprite.prototype.mover = function (dt) {
         this.frame = 0;
     }
     if(this.props.tipo === "tiro"){
+        if(this.x >= canvas.width - 64 || this.x <= 32){
+            this.morto = true
+        }
         if (Math.floor(this.frame) >= 5){
             this.morto = true;
         }

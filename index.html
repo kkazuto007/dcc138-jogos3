@@ -22,6 +22,11 @@
         mapAssets.loadImage("bridge","./assets/bridge/bridge.png");
         assetsMng.loadImage("bear","./assets/main/bear.png");
         assetsMng.loadImage("pill","./assets/main/pill.png");
+        mapAssets.loadImage("text1","./assets/main/text1.png");
+        mapAssets.loadImage("bossslain","./assets/main/BossSlain.png");
+        mapAssets.loadImage("bossslain2","./assets/main/BossSlain2.png");
+        mapAssets.loadImage("mount","./assets/grasslands/charger.png");
+
 
         //toyroom
         mapAssets.loadImage("toyroom1","./assets/toyroom/toyroom1.png");
@@ -52,7 +57,6 @@
         mapAssets.loadImage("pleiades","./assets/pleiades.jpg");
         mapAssets.loadImage("toyblocks","./assets/toyblocks.png");
         mapAssets.loadImage("rocket","./assets/rocket.png");
-        mapAssets.loadImage("text1","./assets/rocket.png");
 
         var canvas = document.querySelector("canvas");
         canvas.width = 800;
@@ -68,6 +72,8 @@
         }
 
         var boss1defeated = 0;
+        var boss2defeated = 0;
+        var boss3defeated = 0;
         var mapas = [];
 
         //toyroom
@@ -188,7 +194,7 @@
         [1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2,  2,  0,  0,  0,  0,  0,  2,  2, 2],
         [1,  1,  0,  0,  0,  1,  1,  1,  1,  0,  0,  0,  0,  0,  2,  2,  2,  2,  2,  2,  0,  0,  2,  2, 2],
         [1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2,  2,  2,  2,  2,  2,  2,  2,  2,  0,  0,  0, 0],
-        [1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  0,  0, 0],
+        [1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  0,  6, 0],
         [1,  1,  1,  1,  1,  1,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 1],
         [1,  1,  1,  1,  1,  1,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 1],
         [1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 1],
@@ -244,8 +250,8 @@
         [1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1],
         [1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1],
         [1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1],
-        [1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1],
-        [1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1],
+        [1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1],
+        [1,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1],
         [1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
         [1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
         [1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
@@ -359,19 +365,19 @@
         m:
         [
         [4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
-        [4,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
+        [4,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4, 4],
         [4,  5,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  5,  5, 4],
         [4,  5,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  5,  5, 4],
         [4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 4],
@@ -612,14 +618,29 @@
         function charge(alvo) {
            return function () {
                if(Math.sqrt((alvo.x - this.x)*(alvo.x - this.x)) +(alvo.y-this.y)*(alvo.y-this.y) <= 200){
-                 this.ax = 200*Math.sign(alvo.x - this.x);
-                 if(alvo.x <= this.x){
-                     this.lado = 0;
-                 }
-                 else{
-                     this.lado = 1;
-                 }
+                   if(alvo.x <= this.x){
+                       this.lado = 0;
+                    }
+                    else{
+                        this.lado = 1;
+                    }
+                    this.ax = 200*Math.sign(alvo.x - this.x);
                }
+            }
+        }
+        function charge2(alvo) {
+           return function () {
+                if (this.cooldown <=0) {
+                    this.cooldown = 3.00;
+                    this.vy = -500;
+                }
+                if(alvo.x <= this.x){
+                    this.lado = 0;
+                }
+                else{
+                    this.lado = 1;
+                }
+                this.ax = 600*Math.sign(alvo.x - this.x);
             }
         }
 
@@ -669,11 +690,9 @@
                 if (teclas.esquerda) { this.ax = -300, this.lado = 0; }
                 if (teclas.direita) { this.ax = +300, this.lado = 1; }
                 if (teclas.esquerda === teclas.direita) { this.ax = 0; }
-                if (this.props.riding != 1){
-                    if (teclas.cima && this.cooldown <=0) { this.cooldown = 0.75; this.vy = -500;  }
-                    if ( this.pulo >= 0.5) { this.pulo = 0, this.vy = -800;  }
-                    if (teclas.cima === teclas.baixo) { this.ay = 0; }
-                }
+                if (teclas.cima && this.cooldown <=0) { this.cooldown = 0.75; this.vy = -500;  }
+                if ( this.pulo >= 0.5) { this.pulo = 0, this.vy = -800;  }
+                if (teclas.cima === teclas.baixo) { this.ay = 0; }
                 if (this.props.riding == 0){
                     if (teclas.espaco && this.cooldown <= 0 && this.dialogo <= 0) {
                         if(this.lado <= 0.5){
@@ -707,12 +726,17 @@
                     }
                 }
                 if (this.props.riding == 1){
+                    this.charging = this.charging - dt;
                     if (teclas.espaco && this.cooldown <= 0) {
                         if(this.lado <= 0.5){
-                            this.vx -= 50;
+                            this.vx -= 500;
+                            this.charging = 0.75;
+                            this.cooldown = 1;
                         }
                         else{
-                            this.vx += 50;
+                            this.vx += 500;
+                            this.charging = 0.75;
+                            this.cooldown = 1;
                         }
                     }
                 }
@@ -764,12 +788,10 @@
             ctx.clearRect(0,0, canvas.width, canvas.height);
             ctx.save();
             dt = (t - anterior) / 1000;
-            
-        //    if(assetsMng.progresso()===100){
-               
+            if(assetsMng.progresso()>=100){
                cena1.passo(dt);
                cena2.passo(dt);
-          //  }
+            }
             anterior = t;
             requestAnimationFrame(passo);
             ctx.restore();

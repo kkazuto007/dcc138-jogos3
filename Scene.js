@@ -7,7 +7,7 @@ function Scene(params) {
         h: 300,
         assets: null,
         map: null,
-        mapindice: 11,
+        mapindice: 4,
         teleportes: 0,
         set: 0,
         chefe: 0,
@@ -54,8 +54,14 @@ Scene.prototype.checaColisao = function(){
             this.sprites[i].morto = 1;
         }
         if(this.sprites[i].morto){
-            if(this.sprites[i].props.tipo === "rider" || this.sprites[i].props.tipo === "eldritch3"){
+            if(this.sprites[i].props.tipo === "rider"){
                 boss1defeated = 1;
+            }
+            if(this.sprites[i].props.tipo === "eldritch3"){
+                boss2defeated = 1;
+            }
+            if(this.sprites[i].props.tipo === "hatyoukai"){
+                boss3defeated = 1;
             }
             this.toRemove.push(this.sprites[i]);
         }
@@ -111,9 +117,24 @@ Scene.prototype.checaColisao = function(){
                     this.sprites[i].vida--;
                 }
                 else 
-                if(this.sprites[i].props.tipo === "pc"
+                if(this.sprites[i].props.tipo === "bearrider"
                 && this.sprites[j].props.tipo ==="charger"){
-                    this.sprites[i].vida--;
+                    if(this.sprites[i].charging <= 0){
+                        this.sprites[i].vida--;
+                    }
+                    else{
+                        this.sprites[j].vida--;
+                    }
+                }
+                else 
+                if(this.sprites[i].props.tipo === "bearrider"
+                && this.sprites[j].props.tipo ==="rider"){
+                    if(this.sprites[i].charging <= 0){
+                        this.sprites[i].vida--;
+                    }
+                    else{
+                        this.sprites[j].vida--;
+                    }
                 }
                 else 
                 if(this.sprites[i].props.tipo === "pc"
@@ -247,38 +268,44 @@ Scene.prototype.scenario = function(){
                 pc.modelo = 1;
                 pc.shadow = 0;
                 this.set = 1;
+                pc.vida = 500;
             }
             break;
         //bridge
         case 5:
             ctx.drawImage(mapAssets.img("bridge"),0,0,300,480,0,0,canvas.width,canvas.height);
             if(this.set <=0.5){
-                var npc = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "charger" }, vida: 5, comportar: charge(pc)});
-                var npc2 = new Sprite({ x: 200, y: 480, w:32, h: 32, lado: 0, props: { tipo: "charger" }, vida: 5, comportar: charge(pc)});
+                var npc = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "charger" }, vida: 50, comportar: charge(pc)});
+                var npc2 = new Sprite({ x: 200, y: 480, w:32, h: 32, lado: 0, props: { tipo: "charger" }, vida: 50, comportar: charge(pc)});
                 cena2.adicionar(npc);
                 cena2.adicionar(npc2);
                 pc.props.tipo = "bearrider";                
                 pc.props.riding = 1;
-
+                pc.vida = 1000;
                 this.set = 1;
             }
             break;
         case 6:
             ctx.drawImage(mapAssets.img("bridge"),0,0,600,480,0,0,canvas.width,canvas.height);
-            pc.props.tipo = "bearrider";
-            if(this.set <=0.5){
-                this.map[this.mapindice].cells[1][14] = 1;
-                this.map[this.mapindice].cells[2][14] = 1;
-                this.map[this.mapindice].cells[1][15] = 1;
-                this.map[this.mapindice].cells[2][15] = 1;
-
-                this.map[this.mapindice].cells[22][14] = 1;
-                this.map[this.mapindice].cells[23][14] = 1;
-                this.map[this.mapindice].cells[22][15] = 1;
-                this.map[this.mapindice].cells[23][15] = 1;
-                var general = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "rider" }, vida: 20, comportar: charge(pc)});
+            if(boss1defeated <= 0 && this.set <=0.5){
+                pc.props.tipo = "bearrider";
+                pc.props.riding = 1;
+                pc.vida = 1000;
+                var general = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "rider" }, vida: 500, comportar: charge2(pc)});
                 cena2.adicionar(general);
                 this.set = 1;
+            }
+            if(boss1defeated){
+                this.map[this.mapindice].cells[1][14].tipo = 0;
+                this.map[this.mapindice].cells[2][14].tipo = 0;
+                this.map[this.mapindice].cells[1][15].tipo = 0;
+                this.map[this.mapindice].cells[2][15].tipo = 0;
+
+                this.map[this.mapindice].cells[22][14].tipo = 0;
+                this.map[this.mapindice].cells[23][14].tipo = 0;
+                this.map[this.mapindice].cells[22][15].tipo = 0;
+                this.map[this.mapindice].cells[23][15].tipo = 0;
+                ctx.drawImage(mapAssets.img("bossslain"),0,0,480,100,32,96,canvas.width-64,100);
             }
             break;
         case 7:
@@ -286,7 +313,8 @@ Scene.prototype.scenario = function(){
             if(this.set <=0.5){
                 pc.props.tipo = "bearrider";
                 pc.props.riding = 1;
-                var npc2 = new Sprite({ x: 480, y: 480, w:32, h: 32, lado: 0, props: { tipo: "charger" }, vida: 5, comportar: charge(pc)});
+                pc.vida = 1000;
+                var npc2 = new Sprite({ x: 480, y: 480, w:48, h: 48, lado: 0, props: { tipo: "charger" }, vida: 100, comportar: charge(pc)});
                 cena2.adicionar(npc2);
                 this.set = 1;
             }
@@ -299,6 +327,7 @@ Scene.prototype.scenario = function(){
                 pc.props.riding = 0;
                 pc.modelo = 1;
                 pc.shadow = 1;
+                pc.vida = 500;
                 var npc = new Sprite({ x: 120, y: 192, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 8, comportar: eldritch(pc)});
                 cena2.adicionar(npc);
                 var npc2 = new Sprite({ x: 460, y: 120, w:32, h: 32, props: { tipo: "eldritch1" }, vida: 8, comportar: eldritch(pc)});
@@ -333,12 +362,12 @@ Scene.prototype.scenario = function(){
             ctx.fillStyle = "black";
             ctx.fillRect(704, 448, 64, 64);
             ctx.fillRect(32, 448, 64, 64);
-            if(this.set <= 0.5){
+            if(boss2defeated <= 0 && this.set <= 0.5){
                 var npc = new Sprite({ x: 480, y: 480, w:128, h: 128, props: { tipo: "eldritch3" }, vida: 12, comportar: boss(pc)});
                 cena2.adicionar(npc);
                 this.set = 1;
             }
-            if(boss1defeated){  
+            if(boss2defeated){  
               this.map[this.mapindice].cells[1][14].tipo = 0;
               this.map[this.mapindice].cells[2][14].tipo = 0;
               this.map[this.mapindice].cells[1][15].tipo = 0;
@@ -347,6 +376,7 @@ Scene.prototype.scenario = function(){
               this.map[this.mapindice].cells[23][14].tipo = 0;
               this.map[this.mapindice].cells[22][15].tipo = 0;
               this.map[this.mapindice].cells[23][15].tipo = 0;
+              ctx.drawImage(mapAssets.img("bossslain"),0,0,480,100,32,96,canvas.width-64,100);
             }
             break;
         case 12:
@@ -382,6 +412,7 @@ Scene.prototype.scenario = function(){
             ctx.fillStyle = "black";
             pc.modelo = 0;
             pc.shadow = 1;
+            pc.vida = 500;
             break;
         case 15:
             ctx.fillStyle = "azure";
@@ -389,10 +420,22 @@ Scene.prototype.scenario = function(){
             ctx.drawImage(mapAssets.img("void2"),0,0,640,576,0,0,canvas.width,canvas.height);
             ctx.drawImage(mapAssets.img("cocoon"),0,0,160,144,0,0,canvas.width,canvas.height);
             ctx.fillStyle = "black";
-            if(this.set <= 0.5){
+            if(boss3defeated <= 0 && this.set <= 0.5){
                 var hatyoukai = new Sprite({ x: 400, y: 360, w:64, h: 64, cooldown: 10, props: { tipo: "hatyoukai" }, vida: 35, comportar: dialogo(pc)});
                 cena2.adicionar(hatyoukai);
                 this.set = 1;
+            }
+            if(boss3defeated){  
+              this.map[this.mapindice].cells[1][14].tipo = 0;
+              this.map[this.mapindice].cells[2][14].tipo = 0;
+              this.map[this.mapindice].cells[1][15].tipo = 0;
+              this.map[this.mapindice].cells[2][15].tipo = 0;
+              //descomentar apor continuar o jogo pular pro mapa 16 com verdadeiro final boss
+              //this.map[this.mapindice].cells[22][14].tipo = 0;
+              //this.map[this.mapindice].cells[23][14].tipo = 0;
+              //this.map[this.mapindice].cells[22][15].tipo = 0;
+              //this.map[this.mapindice].cells[23][15].tipo = 0;
+              ctx.drawImage(mapAssets.img("bossslain2"),0,0,480,100,32,96,canvas.width-64,100);
             }
             break;
         default:
@@ -409,11 +452,11 @@ Scene.prototype.setTeleporte = function(){
         var teleportedir = new Sprite({ x: canvas.width-48, y: 300, w:32, h: 640, props: { tipo: "teleportedir" }});
         cena2.adicionar(teleportedir);
 
-        var teleportecim = new Sprite({ x: 0, y: 0, w:800, h: 32, props: { tipo: "teleportecim" }});
+        /*var teleportecim = new Sprite({ x: 0, y: 0, w:800, h: 32, props: { tipo: "teleportecim" }});
         cena2.adicionar(teleportecim);
 
         var teleportebai = new Sprite({ x: 0, y: canvas.height-48, w:800, h: 32, props: { tipo: "teleportebai" }});
-        cena2.adicionar(teleportebai);
+        cena2.adicionar(teleportebai);*/
     }
     this.teleportes = 1;
 }
